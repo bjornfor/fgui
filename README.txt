@@ -25,14 +25,16 @@ letter that comes before the 'g' in gui (because fgui is very lightweight).
 Implemented features
 --------------------
 
-None so far.
+* basic drawing primitives:
+** rectangle (empty + filled)
+** circle (empty + filled)
+** line
 
 
 Planned features (more or less in sequential order)
 ---------------------------------------------------
 
 * testing framework (use SDL?)
-* basic drawing primitives: rectangle, line, circle
 * monospaced font drawing (how to generate fonts?)
 * widgets:
 ** button
