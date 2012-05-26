@@ -29,12 +29,12 @@ Implemented features
 ** rectangle (empty + filled)
 ** circle (empty + filled)
 ** line
+* testing "framework" using SDL, http://www.libsdl.org/
 
 
 Planned features (more or less in sequential order)
 ---------------------------------------------------
 
-* testing framework (use SDL?)
 * monospaced font drawing (how to generate fonts?)
 * widgets:
 ** button
