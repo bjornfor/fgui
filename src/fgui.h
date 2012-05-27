@@ -10,6 +10,8 @@
 #include <stdint.h>
 
 #include "fgui_primitives.h"
+#include "fgui_font.h"
+
 
 /**
  * This is the "callback" that fgui uses when it needs to draw something on the

@@ -30,12 +30,12 @@ Implemented features
 ** circle (empty + filled)
 ** line
 * example program using fgui with SDL, http://www.libsdl.org/
+* monospaced font drawing
 
 
 Planned features (more or less in sequential order)
 ---------------------------------------------------
 
-* monospaced font drawing (how to generate fonts?)
 * widgets:
 ** button
 ** label
