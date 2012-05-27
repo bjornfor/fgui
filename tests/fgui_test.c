@@ -18,6 +18,9 @@ void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
 // test some fgui primitives
 void render_stuff(void)
 {
+	/* draw background */
+	fgui_fill_rectangle(0, 0, 640, 480, 0xdddddddd);
+
 	fgui_draw_line(0, 0, 10, 10, 0xff << 8);
 	fgui_draw_rectangle(50, 100, 20, 30, 0xff);
 	fgui_fill_rectangle(100, 100, 20, 30, 0xff << 8);
