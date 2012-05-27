@@ -67,6 +67,8 @@ int main(int argc, char *argv[])
 			case SDLK_ESCAPE:
 				// return (and thus, quit)
 				return 0;
+			default:
+				break;
 			}
 			break;
 
