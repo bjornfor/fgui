@@ -26,6 +26,7 @@ static int draw_char(char ch, uint16_t xpos, uint16_t ypos, uint32_t color)
 	int i;
 	int x;
 	int y;
+	int pixel_is_set;
 
 	i = get_char_index(ch);
 	if (i < 0) {
@@ -35,7 +36,10 @@ static int draw_char(char ch, uint16_t xpos, uint16_t ypos, uint32_t color)
 	// draw character
 	for (y = 0; y < cHeight[i]; y++) {
 		for (x = 0; x < cWidth[i]; x++) {
-			fgui_set_pixel(xpos+x, ypos+y, (cData[cOff0[i] + y] & (1<<(cWidth[i]-x))) ? color : 0);
+			pixel_is_set = (cData[cOff0[i] + y] & (1<<(cWidth[i]-x)));
+			if (pixel_is_set) {
+				fgui_set_pixel(xpos+x, ypos+y, color);
+			}
 		}
 	}
 
