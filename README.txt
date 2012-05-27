@@ -18,6 +18,8 @@ the most significant byte is ignored and the three next less significant bytes
 are the R, G and B color values. For monochrome operation use color=0 or
 color=1.
 
+fgui does not use dynamic memory allocation.
+
 The 'f' in fgui is either the first letter of the author's last name or the
 letter that comes before the 'g' in gui (because fgui is very lightweight).
 
