@@ -5,6 +5,7 @@
 SDL_Surface *gScreen;
 
 struct fgui_button button;
+struct fgui_label label;
 
 // define the "callback" that fgui uses to set pixels
 void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
@@ -32,6 +33,7 @@ void render_stuff(void)
 	fgui_draw_string("hello world", 100, 210, 0xff << 8);
 	fgui_draw_string("hello world", 100, 220, 0xff << 16);
 	fgui_button_draw(&button);
+	fgui_label_draw(&label);
 }
 
 int main(int argc, char *argv[])
@@ -39,6 +41,7 @@ int main(int argc, char *argv[])
 	int ret;
 	SDL_Event event;
 	fgui_button_init(&button, 100, 250, 82, 12, "hello world");
+	fgui_label_init(&label, 100, 270, "hello fgui label");
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());

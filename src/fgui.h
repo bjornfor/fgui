@@ -12,6 +12,7 @@
 #include "fgui_primitives.h"
 #include "fgui_font.h"
 #include "fgui_button.h"
+#include "fgui_label.h"
 
 
 /**
