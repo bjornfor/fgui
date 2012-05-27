@@ -6,6 +6,8 @@
 
 /**
  * Draw a point at (x, y).
+ *
+ * See fgui_set_pixel() for description of the color parameter.
  */
 void fgui_draw_point(uint16_t x, uint16_t y, uint32_t color);
 
