@@ -19,6 +19,7 @@ struct fgui_button {
 
 void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 		uint16_t w, uint16_t h, const char *text);
+void fgui_button_set_text(struct fgui_button *button, const char *text);
 void fgui_button_draw(struct fgui_button *button);
 
 #endif /* FGUI_BUTTON_H */

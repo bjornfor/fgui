@@ -23,6 +23,11 @@ void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 	button->y = y;
 	button->width = w;
 	button->height = h;
+	fgui_button_set_text(button, text);
+}
+
+void fgui_button_set_text(struct fgui_button *button, const char *text)
+{
 	strncpy(button->text, text, sizeof button->text);
 	button->text[sizeof button->text - 1] = '\0';
 }
