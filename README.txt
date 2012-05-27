@@ -33,14 +33,15 @@ Implemented features
 ** line
 * example program using fgui with SDL, http://www.libsdl.org/
 * monospaced font drawing
+* widgets:
+** label
 
 
 Planned features (more or less in sequential order)
 ---------------------------------------------------
 
 * widgets:
-** button
-** label
+** button (fgui needs event/input dispatching for this)
 ** textedit (single line and multi-line)
 ** combobox
 ** hierarchical menu (submenus and actions)
