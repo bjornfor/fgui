@@ -1,6 +1,8 @@
 #include <stdint.h>
+#include <string.h>
 
 #include "fgui_label.h"
+#include "fgui_font.h"
 
 #define LABEL_TEXT_COLOR 0
 
@@ -13,7 +15,7 @@ void fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y, const
 	fgui_label_set_text(label, text);
 }
 
-void fgui_label_set_text(struct fgui_label *label, char *text)
+void fgui_label_set_text(struct fgui_label *label, const char *text)
 {
 	strncpy(label->text, text, sizeof label->text);
 	label->text[sizeof label->text - 1] = '\0';
