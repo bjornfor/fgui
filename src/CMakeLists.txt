@@ -3,6 +3,7 @@ set(SOURCES
 	fgui_font.c
 	fgui_button.c
 	fgui_label.c
+	fgui_widget.c
 	fonts/courier.c
 	)
 add_library(fgui STATIC ${SOURCES})
