@@ -32,6 +32,7 @@ void render_stuff(void)
 	fgui_fill_rectangle(100, 100, 20, 30, 0xff << 8);
 	fgui_draw_circle(300, 300, 100, 0xffffffff);
 	fgui_fill_circle(200, 150, 20, 0xff << 16);
+	fgui_draw_string("this string\nspans multiple\nlines", 200, 50, 0xff << 16);
 	fgui_draw_string("hello world", 100, 200, 0xff);
 	fgui_draw_string("hello world", 100, 210, 0xff << 8);
 	fgui_draw_string("hello world", 100, 220, 0xff << 16);

@@ -60,11 +60,12 @@ void fgui_draw_string(const char *str, uint16_t x, uint16_t y, uint32_t color)
 	column = 0;
 	line = 0;
 	for (i = 0; str[i] != '\0'; i++) {
-		column++;
 		if (str[i] == '\n') {
 			line++;
 			column = 0;
+			continue;
 		}
 		draw_char(str[i], x + column*char_width, y + line*char_height, color);
+		column++;
 	}
 }
