@@ -34,6 +34,7 @@ void render_stuff(void)
 	fgui_draw_string("hello world", 100, 220, 0xff << 16);
 	fgui_button_draw(&button);
 	fgui_label_draw(&label);
+	fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
 }
 
 int main(int argc, char *argv[])

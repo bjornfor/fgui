@@ -31,6 +31,7 @@ Implemented features
 ** rectangle (empty + filled)
 ** circle (empty + filled)
 ** line
+** triangle (only empty)
 * example program using fgui with SDL, http://www.libsdl.org/
 * monospaced font drawing
 * widgets:

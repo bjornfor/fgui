@@ -49,5 +49,11 @@ void fgui_draw_circle(uint16_t cx, uint16_t cy, uint16_t radius, uint32_t color)
  */
 void fgui_fill_circle(uint16_t cx, uint16_t cy, uint16_t radius, uint32_t color);
 
+/**
+ * Draw a triangle with corners at (x0,y0), (x1,y1), (x2,y2).
+ */
+void fgui_draw_triangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
+		uint16_t x2, uint16_t y2, uint32_t color);
+
 
 #endif /* FGUI_PRIMITIVES_H */
