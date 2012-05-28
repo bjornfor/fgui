@@ -1,6 +1,9 @@
 #include "SDL.h"
 #include "../src/fgui.h"
 
+#define WIDTH 640
+#define HEIGHT 480
+
 // Screen surface
 SDL_Surface *gScreen;
 
@@ -22,7 +25,7 @@ void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
 void render_stuff(void)
 {
 	/* draw background */
-	fgui_fill_rectangle(0, 0, 640, 480, 0xdddddddd);
+	fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, 0xdddddddd);
 
 	fgui_draw_line(0, 0, 10, 10, 0xff << 8);
 	fgui_draw_rectangle(50, 100, 20, 30, 0xff);
@@ -53,7 +56,7 @@ int main(int argc, char *argv[])
 	atexit(SDL_Quit);
 
 	// attempt to create a 640x480 window with 32bit pixels.
-	gScreen = SDL_SetVideoMode(640, 480, 32, SDL_SWSURFACE);
+	gScreen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_SWSURFACE);
 	if (gScreen == NULL) {
 		fprintf(stderr, "Unable to set up video: %s\n", SDL_GetError());
 		exit(1);
