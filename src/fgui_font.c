@@ -49,11 +49,22 @@ static int draw_char(char ch, uint16_t xpos, uint16_t ypos, uint32_t color)
 void fgui_draw_string(const char *str, uint16_t x, uint16_t y, uint32_t color)
 {
 	int i;
-	int width;
+	int column;
+	int line;
+	int char_width;
+	int char_height;
 
 	// assume all chars have the same width (monospace)
-	width = cWidth[0];
+	char_width = cWidth[0];
+	char_height = cHeight[0];
+	column = 0;
+	line = 0;
 	for (i = 0; str[i] != '\0'; i++) {
-		draw_char(str[i], x + i*width, y, color);
+		column++;
+		if (str[i] == '\n') {
+			line++;
+			column = 0;
+		}
+		draw_char(str[i], x + column*char_width, y + line*char_height, color);
 	}
 }
