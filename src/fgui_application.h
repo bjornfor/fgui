@@ -19,7 +19,7 @@
 struct fgui_application {
 	struct fgui_widget *focus_widget;
 
-	int current_widget;
+	int focus_widget_idx;
 	// TODO: linked list?
 	struct fgui_widget *children[FGUI_MAX_CHILDREN];
 
@@ -29,5 +29,6 @@ struct fgui_application {
 
 void fgui_application_init(struct fgui_application *app);
 void fgui_application_process_event(struct fgui_application *app, struct fgui_event *event);
+int fgui_application_add_widget(struct fgui_application *app, struct fgui_widget *widget);
 
 #endif /* FGUI_APPLICATION_H */
