@@ -8,6 +8,7 @@
 SDL_Surface *gScreen;
 
 struct fgui_button button;
+struct fgui_button button2;
 struct fgui_label label;
 
 // define the "callback" that fgui uses to set pixels
@@ -36,17 +37,45 @@ void render_stuff(void)
 	fgui_draw_string("hello world", 100, 200, 0xff);
 	fgui_draw_string("hello world", 100, 210, 0xff << 8);
 	fgui_draw_string("hello world", 100, 220, 0xff << 16);
-	fgui_button_draw(&button);
+	fgui_button_draw(&button.base);
+	//(*button.base.draw)(&button);
 	fgui_label_draw(&label);
 	fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
+}
+
+struct btn_cb_data {
+	struct fgui_button *button;
+	char *str;
+};
+
+void on_button_click(void *arg)
+{
+	static int num_clicked = 0;
+	char buf[30];
+	struct btn_cb_data *data = arg;
+
+	sprintf(buf, "clicked \n%d times", ++num_clicked);
+	printf("button %p clicked\n", data->button);
+	fgui_button_set_text(data->button, buf);
 }
 
 int main(int argc, char *argv[])
 {
 	int ret;
 	SDL_Event event;
-	fgui_button_init(&button, 100, 250, 82, 12, "hello world");
+	struct fgui_event fgui_event;
+	struct fgui_application app;
+	struct btn_cb_data btn_cb_data = {
+		&button,
+		"hello button userdata",
+	};
+
+	fgui_button_init(&button, 100, 250, 82, 12, "hello world", NULL);
+	//fgui_button_init(&button2, 100, 290, 82, 12, "hello world 2", NULL);
 	fgui_label_init(&label, 100, 270, "hello fgui label");
+	button.base.has_focus = true;
+	app.focus_widget = &button.base;
+	fgui_button_set_on_click_handler(&button, on_button_click, &btn_cb_data);
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
@@ -83,6 +112,9 @@ int main(int argc, char *argv[])
 				// return (and thus, quit)
 				return 0;
 			default:
+				fgui_event.type = FGUI_EVENT_KEYBOARD;
+				fgui_event.key.keycode = event.key.keysym.sym;
+				fgui_application_process_event(&app, &fgui_event);
 				break;
 			}
 			break;
