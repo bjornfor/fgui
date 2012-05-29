@@ -47,15 +47,15 @@ void render_stuff(void)
 struct btn_cb_data {
 	struct fgui_button *button;
 	char *str;
+	int *number;
 };
 
 void on_button_click(void *arg)
 {
-	static int num_clicked = 0;
 	char buf[30];
 	struct btn_cb_data *data = arg;
 
-	sprintf(buf, "clicked \n%d times", ++num_clicked);
+	sprintf(buf, "clicked \n%d times", ++(*data->number));
 	printf("button %p clicked\n", data->button);
 	fgui_button_set_text(data->button, buf);
 }
@@ -66,14 +66,18 @@ int main(int argc, char *argv[])
 	SDL_Event event;
 	struct fgui_event fgui_event;
 	struct fgui_application app;
+	int button_clicks = 0;
+	int button2_clicks = 0;
 	struct btn_cb_data btn_cb_data = {
 		&button,
 		"hello button userdata",
+		&button_clicks,
 	};
 
 	struct btn_cb_data btn_cb_data2 = {
 		&button2,
 		"hello button2 userdata",
+		&button2_clicks,
 	};
 
 	fgui_application_init(&app);
