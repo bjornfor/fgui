@@ -5,12 +5,12 @@
 #include "fgui_widget.h"
 
 
-static void null_draw(void *widget)
+static void null_draw(struct fgui_widget *widget)
 {
 	/* empty */
 }
 
-static void null_event_handler(void *widget, struct fgui_event *event)
+static void null_event_handler(struct fgui_widget *widget, struct fgui_event *event)
 {
 	/* empty */
 }
@@ -25,7 +25,7 @@ void fgui_widget_init(struct fgui_widget *widget, struct fgui_widget *parent)
 	widget->focus_policy = FGUI_TAB_FOCUS;
 }
 
-void fgui_widget_set_draw(struct fgui_widget *widget, void (*draw)(void *widget))
+void fgui_widget_set_draw(struct fgui_widget *widget, void (*draw)(struct fgui_widget *widget))
 {
 	widget->draw = draw;
 }

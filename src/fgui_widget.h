@@ -83,15 +83,15 @@ struct fgui_widget {
 	size_t num_children;
 
 	/** draw widget, must be non-NULL */
-	void (*draw)(void *widget);
+	void (*draw)(struct fgui_widget *widget);
 
 	/** function that handles input events, must be non-NULL */
-	void (*event_handler)(void *widget, struct fgui_event *event);
+	void (*event_handler)(struct fgui_widget *widget, struct fgui_event *event);
 };
 
 
 void fgui_widget_init(struct fgui_widget *widget, struct fgui_widget *parent);
-void fgui_widget_set_draw(struct fgui_widget *widget, void (*draw)(void *widget));
+void fgui_widget_set_draw(struct fgui_widget *widget, void (*draw)(struct fgui_widget *widget));
 int fgui_widget_add_child(struct fgui_widget *widget, struct fgui_widget *child);
 
 #endif /* FGUI_WIDGET_H */
