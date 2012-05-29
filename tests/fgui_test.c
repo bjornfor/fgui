@@ -38,6 +38,7 @@ void render_stuff(void)
 	fgui_draw_string("hello world", 100, 210, 0xff << 8);
 	fgui_draw_string("hello world", 100, 220, 0xff << 16);
 	fgui_button_draw(&button.base);
+	fgui_button_draw(&button2.base);
 	//(*button.base.draw)(&button);
 	fgui_label_draw(&label);
 	fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
@@ -70,12 +71,19 @@ int main(int argc, char *argv[])
 		"hello button userdata",
 	};
 
+	struct btn_cb_data btn_cb_data2 = {
+		&button2,
+		"hello button2 userdata",
+	};
+
+	fgui_application_init(&app);
 	fgui_button_init(&button, 100, 250, 82, 12, "hello world", NULL);
-	//fgui_button_init(&button2, 100, 290, 82, 12, "hello world 2", NULL);
+	fgui_button_init(&button2, 100, 290, 82, 12, "hello world 2", NULL);
 	fgui_label_init(&label, 100, 270, "hello fgui label");
-	button.base.has_focus = true;
-	app.focus_widget = &button.base;
+	fgui_application_add_widget(&app, &button.base);
+	fgui_application_add_widget(&app, &button2.base);
 	fgui_button_set_on_click_handler(&button, on_button_click, &btn_cb_data);
+	fgui_button_set_on_click_handler(&button2, on_button_click, &btn_cb_data2);
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
