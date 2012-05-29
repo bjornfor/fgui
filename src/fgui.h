@@ -14,6 +14,7 @@
 #include "fgui_button.h"
 #include "fgui_label.h"
 #include "fgui_widget.h"
+#include "fgui_application.h"
 
 
 /**
