@@ -10,9 +10,10 @@ static void null_draw(struct fgui_widget *widget)
 	/* empty */
 }
 
-static void null_event_handler(struct fgui_widget *widget, struct fgui_event *event)
+static int null_event_handler(struct fgui_widget *widget, struct fgui_event *event)
 {
-	/* empty */
+	/* we didn't handle this event */
+	return 1;
 }
 
 void fgui_widget_init(struct fgui_widget *widget, struct fgui_widget *parent)

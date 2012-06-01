@@ -67,7 +67,7 @@ void fgui_button_set_on_click_handler(struct fgui_button *button,
 	button->on_click_userdata = userdata;
 }
 
-void fgui_button_event_handler(struct fgui_widget *widget, struct fgui_event *event)
+int fgui_button_event_handler(struct fgui_widget *widget, struct fgui_event *event)
 {
 	struct fgui_button *button = (struct fgui_button *)widget;
 
@@ -76,5 +76,8 @@ void fgui_button_event_handler(struct fgui_widget *widget, struct fgui_event *ev
 		if (button->on_click) {
 			button->on_click(button->on_click_userdata);
 		}
+		return 0;
 	}
+
+	return 1;
 }

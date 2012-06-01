@@ -86,8 +86,15 @@ struct fgui_widget {
 	/** draw widget, must be non-NULL */
 	void (*draw)(struct fgui_widget *widget);
 
-	/** function that handles input events, must be non-NULL */
-	void (*event_handler)(struct fgui_widget *widget, struct fgui_event *event);
+	/**
+	 * Function that handles input events, must be non-NULL.
+	 *
+	 * If an event handler accepts the event it receives it should return
+	 * 0. If it doesn't accept it should return non-zero and the event will
+	 * bubble up in the parent chain. If the top level widget also discards
+	 * the event it is silently dropped.
+	 */
+	int (*event_handler)(struct fgui_widget *widget, struct fgui_event *event);
 };
 
 

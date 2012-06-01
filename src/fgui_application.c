@@ -10,6 +10,9 @@ void fgui_application_init(struct fgui_application *app)
 void fgui_application_process_event(struct fgui_application *app,
 		struct fgui_event *event)
 {
+	int ret;
+	struct fgui_widget *widget;
+
 	/* TAB cycles focus */
 	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == 0x09) { // 0x09 => TAB
 		/* current widget loose focus */
@@ -29,7 +32,17 @@ void fgui_application_process_event(struct fgui_application *app,
 	if (!app->focus_widget) {
 		return;
 	}
-	app->focus_widget->event_handler(app->focus_widget, event);
+
+	/*
+	 * Send the event to each widget in the parent-child chain, until
+	 * someone handles it.
+	 */
+	for (widget = app->focus_widget; widget != NULL; widget = widget->parent) {
+		ret = widget->event_handler(widget, event);
+		if (ret == 0) {
+			break;
+		}
+	}
 }
 
 int fgui_application_add_widget(struct fgui_application *app, struct fgui_widget *widget)

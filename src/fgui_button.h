@@ -26,6 +26,6 @@ void fgui_button_set_text(struct fgui_button *button, const char *text);
 void fgui_button_draw(struct fgui_widget *widget);
 void fgui_button_set_on_click_handler(struct fgui_button *button,
 		void (*callback)(void *userdata), void *userdata);
-void fgui_button_event_handler(struct fgui_widget *widget, struct fgui_event *event);
+int fgui_button_event_handler(struct fgui_widget *widget, struct fgui_event *event);
 
 #endif /* FGUI_BUTTON_H */
