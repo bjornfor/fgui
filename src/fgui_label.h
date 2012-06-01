@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * fgui text label, supports '\n' to create multiline labels
+ */
+
 #ifndef FGUI_LABEL_H
 #define FGUI_LABEL_H
 

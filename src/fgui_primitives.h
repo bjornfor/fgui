@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * fgui drawing primitives
+ */
+
 #ifndef FGUI_PRIMITIVES_H
 #define FGUI_PRIMITIVES_H
 

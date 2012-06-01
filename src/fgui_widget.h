@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * fgui base widget structure
+ * fgui base widget structure, all fgui widgets are based on this.
  */
 
 #ifndef FGUI_WIDGET_H

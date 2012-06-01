@@ -1,3 +1,9 @@
+/**
+ * @file
+ *
+ * fgui font/string drawing functions
+ */
+
 #ifndef FGUI_FONT_H
 #define FGUI_FONT_H
 

@@ -1,7 +1,7 @@
 /**
  * @file
  *
- * fgui button module
+ * fgui push button
  */
 
 #ifndef FGUI_BUTTON_H
