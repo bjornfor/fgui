@@ -31,6 +31,7 @@ void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 	button->width = w;
 	button->height = h;
 	fgui_button_set_text(button, text);
+	button->is_depressed = false;
 }
 
 void fgui_button_set_text(struct fgui_button *button, const char *text)
@@ -58,6 +59,14 @@ void fgui_button_draw(struct fgui_widget *widget)
 		fgui_draw_rectangle(button->base.x, button->base.y, button->width,
 				button->height, FGUI_BUTTON_FOCUS_COLOR);
 	}
+
+	/* draw extra thick border if button is depressed */
+	if (button->is_depressed) {
+		fgui_draw_rectangle(button->base.x-1, button->base.y-1,
+				button->width+2, button->height+2,
+				FGUI_BUTTON_FOCUS_COLOR);
+	}
+
 }
 
 void fgui_button_set_on_click_handler(struct fgui_button *button,
@@ -76,6 +85,12 @@ int fgui_button_event_handler(struct fgui_widget *widget, struct fgui_event *eve
 		if (button->on_click) {
 			button->on_click(button->on_click_userdata);
 		}
+		button->is_depressed = false;
+		return 0;
+	}
+
+	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == 0x20) {
+		button->is_depressed = true;
 		return 0;
 	}
 

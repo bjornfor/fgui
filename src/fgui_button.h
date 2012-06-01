@@ -7,6 +7,9 @@
 #ifndef FGUI_BUTTON_H
 #define FGUI_BUTTON_H
 
+#include <stdint.h>
+#include <stdbool.h>
+
 #include "fgui_widget.h"
 
 #define MAX_TEXT_LEN 50
@@ -18,6 +21,7 @@ struct fgui_button {
 	char text[MAX_TEXT_LEN];
 	void (*on_click)(void *userdata);
 	void *on_click_userdata;
+	bool is_depressed;
 };
 
 void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
