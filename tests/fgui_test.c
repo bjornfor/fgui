@@ -118,13 +118,19 @@ int main(int argc, char *argv[])
 		}
 
 		switch (event.type) {
+		case SDL_KEYDOWN:
+			fgui_event.type = FGUI_EVENT_KEYDOWN;
+			fgui_event.key.keycode = event.key.keysym.sym;
+			fgui_application_process_event(&app, &fgui_event);
+			break;
+
 		case SDL_KEYUP:
 			switch (event.key.keysym.sym) {
 			case SDLK_ESCAPE:
 				// return (and thus, quit)
 				return 0;
 			default:
-				fgui_event.type = FGUI_EVENT_KEYBOARD;
+				fgui_event.type = FGUI_EVENT_KEYUP;
 				fgui_event.key.keycode = event.key.keysym.sym;
 				fgui_application_process_event(&app, &fgui_event);
 				break;

@@ -16,7 +16,8 @@
 
 
 enum fgui_event_type {
-	FGUI_EVENT_KEYBOARD,
+	FGUI_EVENT_KEYDOWN,
+	FGUI_EVENT_KEYUP,
 };
 
 struct fgui_keyboard_event {

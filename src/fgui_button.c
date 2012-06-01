@@ -72,7 +72,7 @@ void fgui_button_event_handler(struct fgui_widget *widget, struct fgui_event *ev
 	struct fgui_button *button = (struct fgui_button *)widget;
 
 	// keycode 0x09 == TAB, 0x20 == SPACE
-	if (event->type == FGUI_EVENT_KEYBOARD && event->key.keycode == 0x20) {
+	if (event->type == FGUI_EVENT_KEYUP && event->key.keycode == 0x20) {
 		if (button->on_click) {
 			button->on_click(button->on_click_userdata);
 		}

@@ -11,7 +11,7 @@ void fgui_application_process_event(struct fgui_application *app,
 		struct fgui_event *event)
 {
 	/* TAB cycles focus */
-	if (event->type == FGUI_EVENT_KEYBOARD && event->key.keycode == 0x09) { // 0x09 => TAB
+	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == 0x09) { // 0x09 => TAB
 		/* current widget loose focus */
 		app->focus_widget->has_focus = false;
 		if (app->focus_widget_idx + 1 < app->num_children) {
