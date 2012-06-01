@@ -24,9 +24,6 @@ void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 	// cast or use button.base as argument
 	fgui_widget_init(&button->base, parent);
 	fgui_widget_set_draw(&button->base, fgui_button_draw);
-	if (parent) {
-		fgui_widget_add_child(parent, (struct fgui_widget *)button);
-	}
 
 	button->base.x = x;
 	button->base.y = y;
