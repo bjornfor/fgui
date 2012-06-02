@@ -10,6 +10,7 @@ SDL_Surface *gScreen;
 struct fgui_button button;
 struct fgui_button button2;
 struct fgui_label label;
+struct fgui_combobox combobox;
 
 // define the "callback" that fgui uses to set pixels
 void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
@@ -39,6 +40,7 @@ void render_stuff(void)
 	fgui_draw_string("hello world", 100, 220, 0xff << 16);
 	fgui_button_draw(&button.base);
 	fgui_button_draw(&button2.base);
+	fgui_widget_draw((struct fgui_widget *)&combobox);
 	//(*button.base.draw)(&button);
 	fgui_label_draw(&label);
 	fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
@@ -58,6 +60,11 @@ void on_button_click(void *arg)
 	sprintf(buf, "clicked \n%d times", ++(*data->number));
 	printf("button %p clicked\n", data->button);
 	fgui_button_set_text(data->button, buf);
+}
+
+void on_combobox_change(void *userdata)
+{
+	printf("%s\n", __func__);
 }
 
 int main(int argc, char *argv[])
@@ -84,10 +91,17 @@ int main(int argc, char *argv[])
 	fgui_button_init(&button, 100, 250, 82, 12, "hello world", NULL);
 	fgui_button_init(&button2, 100, 290, 82, 12, "hello world 2", NULL);
 	fgui_label_init(&label, 100, 270, "hello fgui label");
+	fgui_combobox_init(&combobox, 250, 120, 60, 12, NULL);
+	fgui_combobox_add_item(&combobox, "item1");
+	fgui_combobox_add_item(&combobox, "item2");
+	fgui_combobox_add_item(&combobox, "item3");
+	fgui_combobox_set_index(&combobox, 0);
 	fgui_application_add_widget(&app, &button.base);
 	fgui_application_add_widget(&app, &button2.base);
+	fgui_application_add_widget(&app, (struct fgui_widget *)&combobox);
 	fgui_button_set_on_click_handler(&button, on_button_click, &btn_cb_data);
 	fgui_button_set_on_click_handler(&button2, on_button_click, &btn_cb_data2);
+	fgui_combobox_set_on_change_handler(&combobox, on_combobox_change, NULL);
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
