@@ -143,3 +143,9 @@ int fgui_lineedit_event_handler(struct fgui_widget *widget, struct fgui_event *e
 
 	return ret;
 }
+
+void fgui_lineedit_get_text(struct fgui_lineedit *lineedit, char *text)
+{
+	strncpy(text, lineedit->text, FGUI_LINEEDIT_MAX_TEXTLEN - 1);
+	text[FGUI_LINEEDIT_MAX_TEXTLEN - 1] = '\0';
+}
