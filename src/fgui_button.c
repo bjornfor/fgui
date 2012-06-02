@@ -47,18 +47,19 @@ void fgui_button_draw(struct fgui_widget *widget)
 	/* button background */
 	fgui_fill_rectangle(button->base.x, button->base.y, button->width,
 			button->height, FGUI_BUTTON_BG_COLOR);
-	/* border */
-	fgui_draw_rectangle(button->base.x, button->base.y, button->width,
-			button->height, FGUI_BUTTON_BORDER_COLOR);
-	/* button text */
-	fgui_draw_string(button->text, button->base.x+2, button->base.y+2,
-			FGUI_BUTTON_TEXT_COLOR);
 
-	/* if focus, draw red border */
+	/* draw border, change color depending on focus */
 	if (button->base.has_focus) {
 		fgui_draw_rectangle(button->base.x, button->base.y, button->width,
 				button->height, FGUI_BUTTON_FOCUS_COLOR);
+	} else {
+		fgui_draw_rectangle(button->base.x, button->base.y, button->width,
+				button->height, FGUI_BUTTON_BORDER_COLOR);
 	}
+
+	/* button text */
+	fgui_draw_string(button->text, button->base.x+2, button->base.y+2,
+			FGUI_BUTTON_TEXT_COLOR);
 
 	/* draw extra thick border if button is depressed */
 	if (button->is_depressed) {
