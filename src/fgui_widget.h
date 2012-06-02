@@ -101,5 +101,6 @@ struct fgui_widget {
 void fgui_widget_init(struct fgui_widget *widget, struct fgui_widget *parent);
 void fgui_widget_set_draw(struct fgui_widget *widget, void (*draw)(struct fgui_widget *widget));
 int fgui_widget_add_child(struct fgui_widget *widget, struct fgui_widget *child);
+void fgui_widget_draw(struct fgui_widget *widget);
 
 #endif /* FGUI_WIDGET_H */

@@ -43,3 +43,8 @@ int fgui_widget_add_child(struct fgui_widget *widget, struct fgui_widget *child)
 	widget->children[widget->num_children++] = child;
 	return 0;
 }
+
+void fgui_widget_draw(struct fgui_widget *widget)
+{
+	widget->draw(widget);
+}
