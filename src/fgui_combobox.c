@@ -47,6 +47,22 @@ int fgui_combobox_add_item(struct fgui_combobox *combobox, const char *text)
 	return 0;
 }
 
+int fgui_combobox_remove_item(struct fgui_combobox *combobox, size_t index)
+{
+	size_t i;
+
+	if (index >= combobox->num_items) {
+		return -1;
+	}
+
+	/* remove item by shifting the other items down one step */
+	for (i = index; i < combobox->num_items - 1; i++) {
+		combobox->items[i] = combobox->items[i + 1];
+	}
+	combobox->num_items--;
+	return 0;
+}
+
 int fgui_combobox_current_index(struct fgui_combobox *combobox)
 {
 	return combobox->current_item;
