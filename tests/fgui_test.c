@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 	fgui_application_init(&app);
 	fgui_button_init(&button, 100, 250, 82, 12, "hello world", NULL);
 	fgui_button_init(&button2, 100, 290, 82, 12, "hello world 2", NULL);
-	fgui_label_init(&label, 100, 270, "hello fgui label");
+	fgui_label_init(&label, 100, 270, "hello fgui label", NULL);
 	fgui_combobox_init(&combobox, 250, 120, 60, 12, NULL);
 	fgui_combobox_add_item(&combobox, "item1");
 	fgui_combobox_add_item(&combobox, "item2");
