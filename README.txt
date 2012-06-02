@@ -36,15 +36,15 @@ Implemented features
 * monospaced font drawing
 * widgets:
 ** label
+** push button - supports "on click" callback
+** lineedit (single line text input)
+** combobox - supports "item changed" callback
 
 
 Planned features (more or less in sequential order)
 ---------------------------------------------------
 
 * widgets:
-** button (fgui needs event/input dispatching for this)
-** textedit (single line and multi-line)
-** combobox
 ** hierarchical menu (submenus and actions)
 * find a way to dispatch input events to the right widget
 * input validators (for textedit)
