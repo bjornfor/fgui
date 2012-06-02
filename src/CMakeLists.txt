@@ -4,6 +4,7 @@ set(SOURCES
 	fgui_button.c
 	fgui_label.c
 	fgui_combobox.c
+	fgui_lineedit.c
 	fgui_widget.c
 	fgui_application.c
 	fonts/courier.c
