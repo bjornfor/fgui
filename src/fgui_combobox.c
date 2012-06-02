@@ -62,9 +62,14 @@ void fgui_combobox_current_text(struct fgui_combobox *combobox, char *text)
 	}
 }
 
-void fgui_combobox_set_index(struct fgui_combobox *combobox, int index)
+void fgui_combobox_set_index(struct fgui_combobox *combobox, size_t index)
 {
-	combobox->current_item = index;
+	/* bound index to our available items */
+	if (index < combobox->num_items) {
+		combobox->current_item = index;
+	} else {
+		combobox->current_item = combobox->num_items - 1;
+	}
 }
 
 void fgui_combobox_draw(struct fgui_widget *widget)

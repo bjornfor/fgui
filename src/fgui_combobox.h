@@ -37,7 +37,7 @@ void fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
 int fgui_combobox_add_item(struct fgui_combobox *combobox, const char *text);
 int fgui_combobox_current_index(struct fgui_combobox *combobox);
 void fgui_combobox_current_text(struct fgui_combobox *combobox, char *text);
-void fgui_combobox_set_index(struct fgui_combobox *combobox, int index);
+void fgui_combobox_set_index(struct fgui_combobox *combobox, size_t index);
 void fgui_combobox_draw(struct fgui_widget *widget);
 int fgui_combobox_event_handler(struct fgui_widget *widget, struct fgui_event *event);
 void fgui_combobox_set_on_change_handler(struct fgui_combobox *combobox,
