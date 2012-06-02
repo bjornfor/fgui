@@ -21,7 +21,7 @@ enum fgui_event_type {
 };
 
 struct fgui_keyboard_event {
-	unsigned char keycode;
+	unsigned int keycode;
 };
 
 struct fgui_event {
