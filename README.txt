@@ -28,23 +28,26 @@ Implemented features
 --------------------
 
 * basic drawing primitives:
+** line
 ** rectangle (empty + filled)
 ** circle (empty + filled)
-** line
 ** triangle (only empty)
-* example program using fgui with SDL, http://www.libsdl.org/
-* monospaced font drawing
+* monospaced font
 * widgets:
 ** label
 ** push button - supports "on click" callback
-** lineedit (single line text input)
+** lineedit - single line text input
 ** combobox - supports "item changed" callback
+* example/test program using fgui with SDL, http://www.libsdl.org/
 
 
-Planned features (more or less in sequential order)
----------------------------------------------------
+Possible features
+-----------------
 
 * widgets:
 ** hierarchical menu (submenus and actions)
-* find a way to dispatch input events to the right widget
+* widget coordinates relative to parent
+* make parent widgets draw their children (currently all widgets must be drawn
+  'manually' by the application)
+* clipping (widgets should not draw anything outside their border)
 * input validators (for textedit)
