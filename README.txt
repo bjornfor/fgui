@@ -51,3 +51,10 @@ Possible features
   'manually' by the application)
 * clipping (widgets should not draw anything outside their border)
 * input validators (for textedit)
+
+
+License
+-------
+
+fgui is released under the MIT open source license. See LICENSE.txt or go to
+http://www.opensource.org/licenses/MIT for full license text.
