@@ -1,6 +1,6 @@
 fgui
 ====
-Bjørn Forsman
+Bjørn Forsman <bjorn (dot) forsman (at) gmail (dot) com>
 
 fgui is a simple GUI library, intended for small embedded systems (e.g. 8-bit
 MCUs). fgui has basic drawing primitives (line, rectangle, circle) and some GUI
