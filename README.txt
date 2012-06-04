@@ -1,43 +1,50 @@
-fgui
-====
+fgui - GUI toolkit for microcontrollers
+=======================================
 Bjørn Forsman <bjorn (dot) forsman (at) gmail (dot) com>
 
-fgui is a simple GUI library, intended for small embedded systems (e.g. 8-bit
-MCUs). fgui has basic drawing primitives (line, rectangle, circle) and some GUI
-widgets. All widgets look terribly ugly.
+WARNING: fgui is pre-alpha software.
 
-fgui has no event loop. To make fgui usable in different contexts, the user has
-to manage the event loop and call fgui to do event processing. The user also
-has to setup the drawing surface/screen and whenever fgui needs to draw
-something it will call
+fgui is a small GUI toolkit written in C. It is designed to run on very small
+embedded systems, i.e. 8-bit microcontrollers and up, while still provinding an
+easy to use API.
+
+fgui widgets are placed in a tree structure and input events propagate from the
+currently focused widget and all the way up to the root widget. If a widget
+signals that it has handled the event, the propagation stops. Widgets that
+support user callbacks also support a userdata pointer.
+
+To use fgui, the application must initialize its display device and supply an
+implementation of this function:
 
   fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
 
-which must be supplied by the user. The color value is interpreted like this:
-the most significant byte is ignored and the three next less significant bytes
-are the R, G and B color values. For monochrome operation use color=0 or
-color=1.
+Then include `fgui.h` and explore the API. Basic drawing primitives such as
+line and rectangle are located in `fgui_primitives.h`. Font drawing is in
+`fgui_font.h` and the widgets are located in `fgui_<widget>.h`. fgui is
+object-oriented and `fgui_widget.h` is the base "class" for all widgets.
 
-fgui does not use dynamic memory allocation.
+fgui comes with an http://www.libsdl.org/[SDL] test program, try it:
 
-The 'f' in fgui is either the first letter of the author's last name or the
-letter that comes before the 'g' in gui (because fgui is very lightweight).
+----
+$ cd fgui && mkdir build && cmake .. && make && ./tests/fgui_test
+----
 
 
-Implemented features
---------------------
+Features
+--------
 
 * basic drawing primitives:
 ** line
 ** rectangle (empty + filled)
 ** circle (empty + filled)
 ** triangle (only empty)
-* monospaced font
+* monospaced font drawing
 * widgets:
 ** label
 ** push button - supports "on click" callback
 ** lineedit - single line text input
 ** combobox - supports "item changed" callback
+* no dynamic memory allocation
 * example/test program using fgui with SDL, http://www.libsdl.org/
 
 
