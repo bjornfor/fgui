@@ -30,22 +30,38 @@ void render_stuff(void)
 	/* draw background */
 	fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, 0xdddddddd);
 
-	fgui_draw_line(0, 0, 10, 10, 0xff << 8);
-	fgui_draw_rectangle(50, 100, 20, 30, 0xff);
-	fgui_fill_rectangle(100, 100, 20, 30, 0xff << 8);
-	fgui_draw_circle(300, 300, 100, 0xffffffff);
-	fgui_fill_circle(200, 150, 20, 0xff << 16);
-	fgui_draw_string("this string\nspans multiple\nlines", 200, 50, 0xff << 16);
-	fgui_draw_string("hello world", 100, 200, 0xff);
-	fgui_draw_string("hello world", 100, 210, 0xff << 8);
-	fgui_draw_string("hello world", 100, 220, 0xff << 16);
-	fgui_button_draw(&button.base);
-	fgui_button_draw(&button2.base);
+	fgui_draw_string("Use TAB to cycle focus", 50, 20, 0);
+
+	fgui_draw_string("line:", 50, 50, 0);
+	fgui_draw_line(200, 50, 220, 50, 0xff << 8);
+
+	fgui_draw_string("empty rectangle", 50, 70, 0);
+	fgui_draw_rectangle(200, 70, 10, 10, 0xff);
+
+	fgui_draw_string("filled rectangle", 50, 90, 0);
+	fgui_fill_rectangle(200, 90, 10, 10, 0xff << 8);
+
+	fgui_draw_string("filled circle", 50, 110, 0);
+	fgui_draw_circle(200, 110, 5, 0xffffffff);
+
+	//fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
+
+	fgui_draw_string("this colored string\nspans multiple\nlines", 200, 120, 0xff << 16);
+
+	fgui_draw_string("push button", 50, 170, 0);
+	fgui_button_draw((struct fgui_widget *)&button);
+
+	fgui_draw_string("2nd push button", 50, 190, 0);
+	fgui_button_draw((struct fgui_widget *)&button2);
+
+	fgui_draw_string("combobox", 50, 210, 0);
 	fgui_widget_draw((struct fgui_widget *)&combobox);
-	//(*button.base.draw)(&button);
-	fgui_label_draw(&label);
+
+	fgui_draw_string("label widget", 50, 230, 0);
+	fgui_label_draw((struct fgui_widget *)&label);
+
+	fgui_draw_string("lineedit", 50, 250, 0);
 	fgui_widget_draw((struct fgui_widget *)&lineedit);
-	fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
 }
 
 struct btn_cb_data {
@@ -90,11 +106,11 @@ int main(int argc, char *argv[])
 	};
 
 	fgui_application_init(&app);
-	fgui_button_init(&button, 100, 250, 82, 12, "hello world", NULL);
-	fgui_button_init(&button2, 100, 290, 82, 12, "hello world 2", NULL);
-	fgui_label_init(&label, 100, 270, "hello fgui label", NULL);
-	fgui_lineedit_init(&lineedit, 200, 20, 100, 15, NULL);
-	fgui_combobox_init(&combobox, 250, 120, 60, 12, NULL);
+	fgui_button_init(&button, 200, 170, 82, 12, "hello world", NULL);
+	fgui_button_init(&button2, 200, 190, 82, 12, "hello world 2", NULL);
+	fgui_label_init(&label, 200, 230, "hello fgui label", NULL);
+	fgui_lineedit_init(&lineedit, 200, 250, 100, 15, NULL);
+	fgui_combobox_init(&combobox, 200, 210, 60, 12, NULL);
 	fgui_combobox_add_item(&combobox, "item1");
 	fgui_combobox_add_item(&combobox, "item2");
 	fgui_combobox_add_item(&combobox, "item3");
