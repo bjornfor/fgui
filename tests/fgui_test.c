@@ -46,6 +46,9 @@ void render_stuff(void)
 
 	//fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
 
+	fgui_draw_string("label widget", 50, 230, 0);
+	fgui_label_draw((struct fgui_widget *)&label);
+
 	fgui_draw_string("this colored string\nspans multiple\nlines", 200, 120, 0xff << 16);
 
 	fgui_draw_string("push button", 50, 170, 0);
@@ -56,9 +59,6 @@ void render_stuff(void)
 
 	fgui_draw_string("combobox", 50, 210, 0);
 	fgui_widget_draw((struct fgui_widget *)&combobox);
-
-	fgui_draw_string("label widget", 50, 230, 0);
-	fgui_label_draw((struct fgui_widget *)&label);
 
 	fgui_draw_string("lineedit", 50, 250, 0);
 	fgui_widget_draw((struct fgui_widget *)&lineedit);
