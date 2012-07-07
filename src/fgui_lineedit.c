@@ -119,8 +119,10 @@ int fgui_lineedit_event_handler(struct fgui_widget *widget, struct fgui_event *e
 
 	if (event->type == FGUI_EVENT_KEYDOWN &&
 			(event->key.keycode >= 0x20 && event->key.keycode < 0x7f)) {
-		insert_char(lineedit->text, lineedit->cursor, event->key.keycode);
-		lineedit->cursor++;
+		if (strlen(lineedit->text) < FGUI_LINEEDIT_MAX_TEXTLEN - 1) {
+			insert_char(lineedit->text, lineedit->cursor, event->key.keycode);
+			lineedit->cursor++;
+		}
 		ret = 0;
 	} else if (event->type == FGUI_EVENT_KEYDOWN &&
 			(event->key.keycode == KEY_BACKSPACE)) {
