@@ -11,6 +11,7 @@
 #define FGUI_FONT_DATA_H
 
 #include <stdint.h>
+#include <stdlib.h>  /* wchar_t */
 
 // Grid size is 7 across by 9 down
 // Scan order is horizontal, L->R, start at top
@@ -32,5 +33,14 @@ extern uint16_t cOff1[62];
 
 // This is the encoded data for each character:
 extern uint8_t cData[558];
+
+//struct font_data {
+//	wchar_t codepoint;
+//	int width;
+//	int height;
+//	unsigned char data[50];  // FIXME: wastes space!
+//};
+
+//extern struct font_data cUnicode[62];
 
 #endif /* FGUI_FONT_DATA_H */

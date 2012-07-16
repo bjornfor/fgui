@@ -8,5 +8,6 @@ set(SOURCES
 	fgui_widget.c
 	fgui_application.c
 	fonts/courier.c
+	../font_experiments/output/font.c
 	)
 add_library(fgui STATIC ${SOURCES})

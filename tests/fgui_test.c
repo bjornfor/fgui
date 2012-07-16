@@ -24,12 +24,48 @@ void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
 	SDL_FillRect(gScreen, &r, color);
 }
 
+#include "../font_experiments/a_gimp.xbm"
+#include "../font_experiments/output/a.xbm"
+
+bool pixel_is_set(unsigned char *xbmbits, uint16_t width, uint16_t height,
+		uint16_t x, uint16_t y)
+{
+	uint16_t byteoffset;
+	uint16_t bitoffset;
+
+	/* round up width to match how the XBM data is laid out */
+	width = (width + 7) & ~0x07;
+	byteoffset = (y * width + x) / 8;
+	bitoffset = x % 8;
+	return xbmbits[byteoffset] & (1 << bitoffset);
+}
+
+/* draw the contents of a .xbm file */
+#define DRAW_XBM(x, y, basename) \
+	do { \
+		int _x, _y; \
+		\
+		for (_y = 0; _y < basename##_height; _y++) { \
+			for (_x = 0; _x < basename##_width; _x++) { \
+				if (pixel_is_set(basename##_bits, basename##_width, basename##_height, _x, _y)) { \
+					fgui_draw_point(x+_x, y+_y, 0xff); \
+				} \
+			} \
+		} \
+	} while (0)
+
 // test some fgui primitives
 void render_stuff(void)
 {
 	/* draw background */
 	fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, 0xdddddddd);
 
+	//DRAW_XBM(0, 0, a_gimp);
+	//DRAW_XBM(100, 10, a);
+	//fgui_draw_string("C", 0, 0, 0);
+	//fgui_draw_rectangle(0, 0, 20, 25, 0xff);
+	//fgui_draw_string("Use TAB to cycle focus", 50, 20, 0);
+#if 1
 	fgui_draw_string("Use TAB to cycle focus", 50, 20, 0);
 
 	fgui_draw_string("line:", 50, 50, 0);
@@ -62,6 +98,7 @@ void render_stuff(void)
 
 	fgui_draw_string("lineedit", 50, 250, 0);
 	fgui_widget_draw((struct fgui_widget *)&lineedit);
+#endif
 }
 
 struct btn_cb_data {
