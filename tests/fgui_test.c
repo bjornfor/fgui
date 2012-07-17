@@ -25,7 +25,7 @@ void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
 }
 
 #include "../font_experiments/a_gimp.xbm"
-#include "../font_experiments/output/a.xbm"
+#include "../font_experiments/output/codepoint_65.xbm"
 
 bool pixel_is_set(unsigned char *xbmbits, uint16_t width, uint16_t height,
 		uint16_t x, uint16_t y)
