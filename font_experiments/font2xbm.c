@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <errno.h>
+#include <stdint.h>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -42,11 +44,25 @@ void draw_bitmap(FT_Bitmap *bitmap, FT_Int x, FT_Int y)
 #endif
 }
 
+void set_pixel(unsigned char *xbmbits, uint16_t width, uint16_t height,
+		uint16_t x, uint16_t y)
+{
+	uint16_t byteoffset;
+	uint16_t bitoffset;
+
+	/* round up width to match how the XBM data is laid out */
+	width = (width + 7) & ~0x07;
+	byteoffset = (y * width + x) / 8;
+	bitoffset = x % 8;
+	xbmbits[byteoffset] |= (1 << bitoffset);
+}
+
 // TODO: use wchar_t, long int or uint32_t?
 void dump_as_xbm(FT_GlyphSlot slot, char ch)
 {
+	int i;
 	FT_Int x, y;
-	unsigned char byte;
+	unsigned char xbmbits[100] = {0};
 	int rows = slot->bitmap.rows;
 	int width = slot->bitmap.width;
 	int pitch = slot->bitmap.pitch;
@@ -67,19 +83,30 @@ void dump_as_xbm(FT_GlyphSlot slot, char ch)
 			);
 
 
-	printf("#define codepoint_%d_height %ld\n", (int)ch, slot->metrics.height >> 6);
-	printf("#define codepoint_%d_width %ld\n", (int)ch, slot->metrics.width >> 6);
-	printf("static unsigned char codepoint_%d_bits = {\n", (int)ch);
+	FILE *fp = fopen("tmp.xbm", "w");
+	if (!fp) {
+		printf("error opening tmp.xbm: %s\n", strerror(errno));
+		exit(1);
+	}
+	fprintf(fp, "#define codepoint_%d_height %ld\n", (int)ch, slot->metrics.height >> 6);
+	fprintf(fp, "#define codepoint_%d_width %ld\n", (int)ch, slot->metrics.width >> 6);
+	fprintf(fp, "static unsigned char codepoint_%d_bits = {\n", (int)ch);
 
 	for (y = 0; y < rows; y++) {
-		byte = 0;
 		for (x = 0; x < pitch; x++) {
-			byte |= (1 << (8-x)) & (slot->bitmap.buffer[y * pitch + x]);
+			if (slot->bitmap.buffer[y * pitch + x] > 90) {
+				set_pixel(xbmbits, pitch, rows, x, y);
+			}
 		}
-		printf("0x%02x, ", byte); //slot->bitmap.buffer[y * slot->bitmap.width + x]);
 	}
-	printf("\n};\n");
-	printf("\n");
+
+	// TODO: don't write more bytes than the .xbm header defines
+	// (width_rounded_up * height_rounded_up)
+	for (i = 0; i < sizeof xbmbits; i++) {
+		fprintf(fp, "0x%02x, ", xbmbits[i]);
+	}
+	fprintf(fp, "\n};\n");
+	fclose(fp);
 }
 
 void show_image(void)
