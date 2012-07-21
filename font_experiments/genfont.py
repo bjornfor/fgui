@@ -76,10 +76,11 @@ def main():
         cmdlist.extend(["-font", options.font])
         cmdlist.extend(["-shave", "%s" % options.shave])
         ## TODO: this commandline gives great results
-        #cmdlist = ["gm", "convert", "-pointsize", "10", "-shave", "30x0%"]
+        cmdlist = ["gm", "convert", "-pointsize", "10", "-shave", "30x0%"]
         cmdlist.extend(["label:%s" % ch, path])
         print(" ".join(cmdlist))
         subprocess.check_call(cmdlist)
+    print("WARN: hardcoded/overridden command-line")
 
     # build an array that connects character code points to bitmaps
     num_chars = len(characters)
