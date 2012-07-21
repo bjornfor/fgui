@@ -72,6 +72,8 @@ def main():
         #cmdlist.extend(["-pointsize", "%s" % options.pointsize])
         cmdlist.extend(["-density", "%d" % options.density])
         cmdlist.extend(["-font", options.font])
+        ## TODO: this commandline gives great results
+        #cmdlist = ["gm", "convert", "-pointsize", "10", "-shave", "30x0%"]
         cmdlist.extend(["label:%s" % ch, path])
         print(" ".join(cmdlist))
         subprocess.check_call(cmdlist)
