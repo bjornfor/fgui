@@ -34,10 +34,10 @@ def parse_args():
                       (see 'convert -list font' for available fonts)")
     parser.add_option("--shave", dest="shave", default="0x0%",
                       help="shave off MxN pixels (or percent) from image width and height, default \"%default\"")
-    parser.add_option("-s", "--size", dest="size", default="10x14",
-                      help="character size in pixels, default \"%default\"")
-    parser.add_option("-d", "--density", dest="density", type="int", default=500,
-                      help="density (passed to graphicsmagick), default \"%default\"")
+    #parser.add_option("-s", "--size", dest="size", default="10x14",
+    #                  help="character size in pixels, default \"%default\"")
+    #parser.add_option("-d", "--density", dest="density", type="int", default=500,
+    #                  help="density (passed to graphicsmagick), default \"%default\"")
     parser.add_option("-p", "--pointsize", dest="pointsize", type="int", default=14,
                       help="font point size (passed to graphicsmagick), default \"%default\"")
     (options, args) = parser.parse_args()
@@ -69,18 +69,17 @@ def main():
     for ch in characters:
         path = os.path.join(outputdir, "codepoint_%s.xbm" % ord(ch))
         cmdlist = ["gm", "convert"]
-        if options.size:
-            cmdlist.extend(["-resize", options.size])
-        #cmdlist.extend(["-pointsize", "%s" % options.pointsize])
-        cmdlist.extend(["-density", "%d" % options.density])
+        #if options.size:
+        #    cmdlist.extend(["-resize", options.size])
+        cmdlist.extend(["-pointsize", "%s" % options.pointsize])
+        #cmdlist.extend(["-density", "%d" % options.density])
         cmdlist.extend(["-font", options.font])
         cmdlist.extend(["-shave", "%s" % options.shave])
-        ## TODO: this commandline gives great results
-        cmdlist = ["gm", "convert", "-pointsize", "10", "-shave", "30x0%"]
+        ## NOTE: this commandline gives great results
+        #cmdlist = ["gm", "convert", "-pointsize", "10", "-shave", "30x0%"]
         cmdlist.extend(["label:%s" % ch, path])
         print(" ".join(cmdlist))
         subprocess.check_call(cmdlist)
-    print("WARN: hardcoded/overridden command-line")
 
     # build an array that connects character code points to bitmaps
     num_chars = len(characters)
