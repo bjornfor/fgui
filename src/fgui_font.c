@@ -156,7 +156,7 @@ void fgui_draw_string(const char *str, const uint16_t x, const uint16_t y, uint3
 		char_width = cUnicode[j].width;
 		char_height = cUnicode[j].height;
 		draw_char2(str[i], x + xoff, y + yoff, color);
-		xoff += char_width - 2;
+		xoff += char_width;
 #else
 		draw_char(str[i], x + column*char_width, y + line*char_height, color);
 #endif
