@@ -32,6 +32,8 @@ def parse_args():
     parser.add_option("-f", "--font", dest="font", default="Courier",
                       help="render text with this font, default \"%default\" \
                       (see 'convert -list font' for available fonts)")
+    parser.add_option("--shave", dest="shave", default="0x0%",
+                      help="shave off MxN pixels (or percent) from image width and height, default \"%default\"")
     parser.add_option("-s", "--size", dest="size", default="10x14",
                       help="character size in pixels, default \"%default\"")
     parser.add_option("-d", "--density", dest="density", type="int", default=500,
@@ -72,6 +74,7 @@ def main():
         #cmdlist.extend(["-pointsize", "%s" % options.pointsize])
         cmdlist.extend(["-density", "%d" % options.density])
         cmdlist.extend(["-font", options.font])
+        cmdlist.extend(["-shave", "%s" % options.shave])
         ## TODO: this commandline gives great results
         #cmdlist = ["gm", "convert", "-pointsize", "10", "-shave", "30x0%"]
         cmdlist.extend(["label:%s" % ch, path])
