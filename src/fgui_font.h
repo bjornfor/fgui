@@ -17,6 +17,8 @@
 
 #include <stdint.h>
 
+#define USE_NEW_FONT 1
+
 /**
  * Draw a string starting at (x, y).
  *

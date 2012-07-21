@@ -15,6 +15,7 @@
 #include "fgui_primitives.h"
 #include "fgui_font.h"
 #include "fgui_font_data.h"
+#include "../font_experiments/output/font.h"
 
 #define FGUI_LINEEDIT_FOCUS_COLOR (0xff << 16)
 #define FGUI_LINEEDIT_BORDER_COLOR 0xaaaaaaaa
@@ -67,8 +68,13 @@ void fgui_lineedit_draw(struct fgui_widget *widget)
 	/* draw cursor (if we have focus) */
 	if (lineedit->base.has_focus) {
 		/* assume monospaced font */
+#if USE_NEW_FONT
+		char_width = cUnicode[0].width;
+		char_height = cUnicode[0].height;
+#else
 		char_width = cWidth[0];
 		char_height = cHeight[0];
+#endif
 		fgui_draw_line(lineedit->base.x + 4 + lineedit->cursor * char_width,
 				lineedit->base.y + 2,
 				lineedit->base.x + 4 + lineedit->cursor * char_width,

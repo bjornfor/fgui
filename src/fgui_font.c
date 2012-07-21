@@ -128,8 +128,6 @@ void fgui_draw_string(const char *str, const uint16_t x, const uint16_t y, uint3
 	int xoff = 0;
 	int yoff = 0;
 
-#define USE_NEW_FONT 1
-
 #if USE_NEW_FONT
 	/* nop */
 #else
