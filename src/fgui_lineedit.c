@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "fgui_widget.h"
 #include "fgui_lineedit.h"
@@ -117,8 +118,7 @@ int fgui_lineedit_event_handler(struct fgui_widget *widget, struct fgui_event *e
 	struct fgui_lineedit *lineedit = (struct fgui_lineedit *)widget;
 	int ret = 1;
 
-	if (event->type == FGUI_EVENT_KEYDOWN &&
-			(event->key.keycode >= 0x20 && event->key.keycode < 0x7f)) {
+	if (event->type == FGUI_EVENT_KEYDOWN && isprint(event->key.keycode)) {
 		if (strlen(lineedit->text) < FGUI_LINEEDIT_MAX_TEXTLEN - 1) {
 			insert_char(lineedit->text, lineedit->cursor, event->key.keycode);
 			lineedit->cursor++;
