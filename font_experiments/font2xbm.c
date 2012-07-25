@@ -82,6 +82,7 @@ void dump_as_xbm(FT_GlyphSlot slot, char ch)
 			, slot->metrics.horiAdvance >> 6
 			);
 
+	printf("bitmap_left: %d, bitmap_top: %d\n", slot->bitmap_left, slot->bitmap_top);
 
 	FILE *fp = fopen("tmp.xbm", "w");
 	if (!fp) {
