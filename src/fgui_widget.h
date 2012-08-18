@@ -24,6 +24,7 @@
 
 
 enum fgui_event_type {
+	FGUI_EVENT_NULL = 0,  /* not an event */
 	FGUI_EVENT_KEYDOWN,
 	FGUI_EVENT_KEYUP,
 };
