@@ -48,8 +48,8 @@ Features
 * example/test program using fgui with SDL, http://www.libsdl.org/
 
 
-Possible features
------------------
+Planned features
+----------------
 
 * widgets:
 ** hierarchical menu (submenus and actions)
