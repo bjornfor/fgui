@@ -58,6 +58,7 @@ Planned features
   'manually' by the application)
 * clipping (widgets should not draw anything outside their border)
 * input validators (for textedit)
+* multi-tap input method
 
 
 License
