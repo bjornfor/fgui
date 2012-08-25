@@ -65,3 +65,12 @@ License
 
 fgui is released under the MIT open source license. See LICENSE.txt or go to
 http://www.opensource.org/licenses/MIT for full license text.
+
+
+Related projects
+----------------
+
+* http://www.segger.com/cms/emwin.html[emWin] (not free software)
+* http://www.swellsoftware.com/products/cpeg.php[C/PEG] (not free software)
+* http://www.easygui.com/[easyGUI] (not free software)
+* http://www.contiki-os.org/[Contiki], a whole RTOS, not just GUI
