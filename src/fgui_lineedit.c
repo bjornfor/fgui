@@ -10,6 +10,7 @@
 #include <string.h>
 #include <ctype.h>
 
+#include "fgui_event.h"
 #include "fgui_widget.h"
 #include "fgui_lineedit.h"
 #include "fgui_primitives.h"

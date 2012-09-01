@@ -10,6 +10,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "fgui_event.h"
 #include "fgui_widget.h"
 
 

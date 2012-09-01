@@ -25,6 +25,7 @@
 #include "fgui_lineedit.h"
 #include "fgui_widget.h"
 #include "fgui_application.h"
+#include "fgui_event.h"
 
 
 /**

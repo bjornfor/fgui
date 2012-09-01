@@ -21,6 +21,8 @@
 #include <stdint.h>
 #include <stddef.h>    // size_t
 
+#include "fgui_event.h"
+
 #define MAX_COMBOBOX_TEXT_LEN 20
 #define MAX_COMBOBOX_ITEMS 10
 

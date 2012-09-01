@@ -15,6 +15,7 @@
 #ifndef FGUI_LINEEDIT_H
 #define FGUI_LINEEDIT_H
 
+#include "fgui_event.h"
 #include "fgui_widget.h"
 
 #define FGUI_LINEEDIT_MAX_TEXTLEN 50

@@ -18,6 +18,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "fgui_event.h"
 #include "fgui_widget.h"
 
 #define MAX_TEXT_LEN 50

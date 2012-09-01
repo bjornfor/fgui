@@ -10,6 +10,7 @@
 #include <stddef.h>    // size_t
 #include <string.h>
 
+#include "fgui_event.h"
 #include "fgui_widget.h"
 #include "fgui_combobox.h"
 #include "fgui_primitives.h"

@@ -8,6 +8,7 @@
 
 #include <string.h>
 
+#include "fgui_event.h"
 #include "fgui_application.h"
 
 void fgui_application_init(struct fgui_application *app)

@@ -22,6 +22,7 @@
 
 #include <stddef.h>
 
+#include "fgui_event.h"
 #include "fgui_widget.h"
 
 struct fgui_application {
