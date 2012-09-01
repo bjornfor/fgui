@@ -42,7 +42,7 @@ struct fgui_combobox {
 	void *on_change_userdata;
 };
 
-void fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
+int fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
 		uint16_t w, uint16_t h, struct fgui_widget *parent);
 int fgui_combobox_add_item(struct fgui_combobox *combobox, const char *text);
 int fgui_combobox_remove_item(struct fgui_combobox *combobox, size_t index);

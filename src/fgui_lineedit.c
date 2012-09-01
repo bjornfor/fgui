@@ -27,11 +27,17 @@
 #define KEY_RIGHT 275
 #define KEY_LEFT 276
 
-void fgui_lineedit_init(struct fgui_lineedit *lineedit,
+int fgui_lineedit_init(struct fgui_lineedit *lineedit,
 		uint16_t x, uint16_t y, uint16_t w, uint16_t h,
 		struct fgui_widget *parent)
 {
-	fgui_widget_init((struct fgui_widget *)lineedit, parent);
+	int ret;
+
+	ret = fgui_widget_init((struct fgui_widget *)lineedit, parent);
+	if (ret != 0) {
+		return -1;
+	}
+
 	fgui_widget_set_draw((struct fgui_widget *)lineedit, fgui_lineedit_draw);
 	lineedit->base.x = x;
 	lineedit->base.y = y;
@@ -40,6 +46,7 @@ void fgui_lineedit_init(struct fgui_lineedit *lineedit,
 	lineedit->base.event_handler = fgui_lineedit_event_handler;
 	lineedit->cursor = 0;
 	lineedit->text[0] = '\0';
+	return 0;
 }
 
 void fgui_lineedit_draw(struct fgui_widget *widget)

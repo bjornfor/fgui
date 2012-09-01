@@ -15,14 +15,21 @@
 #define LABEL_TEXT_COLOR 0
 
 
-void fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y, const
+int fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y, const
 		const char *text, struct fgui_widget *parent)
 {
-	fgui_widget_init((struct fgui_widget *)label, parent);
+	int ret;
+
+	ret = fgui_widget_init((struct fgui_widget *)label, parent);
+	if (ret != 0) {
+		return -1;
+	}
+
 	label->base.focus_policy = FGUI_NO_FOCUS;
 	label->base.x = x;
 	label->base.y = y;
 	fgui_label_set_text(label, text);
+	return 0;
 }
 
 void fgui_label_set_text(struct fgui_label *label, const char *text)

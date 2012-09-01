@@ -29,7 +29,7 @@ struct fgui_lineedit {
 };
 
 
-void fgui_lineedit_init(struct fgui_lineedit *lineedit, uint16_t x, uint16_t y, uint16_t w, uint16_t h, struct fgui_widget *parent);
+int fgui_lineedit_init(struct fgui_lineedit *lineedit, uint16_t x, uint16_t y, uint16_t w, uint16_t h, struct fgui_widget *parent);
 void fgui_lineedit_draw(struct fgui_widget *widget);
 int fgui_lineedit_event_handler(struct fgui_widget *widget, struct fgui_event *event);
 void fgui_lineedit_get_text(struct fgui_lineedit *lineedit, char *text);

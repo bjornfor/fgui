@@ -26,13 +26,18 @@
 #define FGUI_BUTTON_TEXT_COLOR 0
 #define FGUI_BUTTON_FOCUS_COLOR (0xff << 16)
 
-void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
+int fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 		uint16_t w, uint16_t h, const char *text, struct fgui_widget *parent)
 {
-	// cast or use button.base as argument
-	fgui_widget_init(&button->base, parent);
-	fgui_widget_set_draw(&button->base, fgui_button_draw);
+	int ret;
 
+	// cast or use button.base as argument
+	ret = fgui_widget_init(&button->base, parent);
+	if (ret != 0) {
+		return -1;
+	}
+
+	fgui_widget_set_draw(&button->base, fgui_button_draw);
 	button->base.x = x;
 	button->base.y = y;
 	button->base.event_handler = fgui_button_event_handler;
@@ -40,6 +45,7 @@ void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 	button->height = h;
 	fgui_button_set_text(button, text);
 	button->is_depressed = false;
+	return 0;
 }
 
 void fgui_button_set_text(struct fgui_button *button, const char *text)

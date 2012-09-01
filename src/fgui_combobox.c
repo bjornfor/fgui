@@ -27,10 +27,16 @@
 #define KEY_DOWN 274
 #define KEY_ENTER 0x0d
 
-void fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
+int fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
 		uint16_t w, uint16_t h, struct fgui_widget *parent)
 {
-	fgui_widget_init((struct fgui_widget *)combobox, parent);
+	int ret;
+
+	ret = fgui_widget_init((struct fgui_widget *)combobox, parent);
+	if (ret != 0) {
+		return -1;
+	}
+
 	fgui_widget_set_draw((struct fgui_widget *)combobox, fgui_combobox_draw);
 	combobox->base.x = x;
 	combobox->base.y = y;
@@ -39,6 +45,7 @@ void fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
 	combobox->width = w;
 	combobox->height = h;
 	combobox->base.event_handler = fgui_combobox_event_handler;
+	return 0;
 }
 
 int fgui_combobox_add_item(struct fgui_combobox *combobox, const char *text)

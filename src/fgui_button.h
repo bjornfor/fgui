@@ -33,7 +33,7 @@ struct fgui_button {
 	bool is_depressed;
 };
 
-void fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
+int fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 		uint16_t w, uint16_t h, const char *text, struct fgui_widget *parent);
 void fgui_button_set_text(struct fgui_button *button, const char *text);
 void fgui_button_draw(struct fgui_widget *widget);
