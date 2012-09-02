@@ -9,7 +9,6 @@
 #include <stdint.h>
 #include <stdlib.h>  // abs()
 
-#include "fgui.h"
 #include "fgui_primitives.h"
 
 

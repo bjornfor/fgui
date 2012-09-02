@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 
-#include "fgui.h"
+#include "fgui_primitives.h"
 #include "fgui_font.h"
 #include "fgui_font_data.h"
 #include "utils.h"
