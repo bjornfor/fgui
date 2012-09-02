@@ -109,6 +109,10 @@ void fgui_combobox_draw(struct fgui_widget *widget)
 	size_t i;
 	struct fgui_combobox *combobox = (struct fgui_combobox *)widget;
 
+	if (!combobox->base.has_focus) {
+		combobox->is_expanded = false;
+	}
+
 	if (combobox->is_expanded) {
 		/* combobox background */
 		fgui_fill_rectangle(combobox->base.x, combobox->base.y,
