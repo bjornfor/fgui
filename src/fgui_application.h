@@ -39,5 +39,6 @@ struct fgui_application {
 void fgui_application_init(struct fgui_application *app);
 void fgui_application_process_event(struct fgui_application *app, struct fgui_event *event);
 int fgui_application_add_widget(struct fgui_application *app, struct fgui_widget *widget);
+void fgui_application_draw(struct fgui_application *app);
 
 #endif /* FGUI_APPLICATION_H */

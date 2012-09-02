@@ -69,3 +69,12 @@ int fgui_application_add_widget(struct fgui_application *app, struct fgui_widget
 	app->children[app->num_children++] = widget;
 	return 0;
 }
+
+void fgui_application_draw(struct fgui_application *app)
+{
+	int i;
+
+	for (i = 0; i < app->num_children; i++) {
+		fgui_widget_draw(app->children[i]);
+	}
+}
