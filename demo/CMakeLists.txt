@@ -1,0 +1,5 @@
+find_package(SDL REQUIRED)
+include_directories(${SDL_INCLUDE_DIR})
+add_executable(fgui_demo fgui_demo.c)
+target_link_libraries(fgui_demo fgui ${SDL_LIBRARY})
+install(TARGETS fgui_demo DESTINATION bin)

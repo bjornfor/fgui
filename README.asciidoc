@@ -23,10 +23,10 @@ line and rectangle are located in `fgui_primitives.h`. Font drawing is in
 `fgui_font.h` and the widgets are located in `fgui_<widget>.h`. fgui is
 object-oriented and `fgui_widget.h` is the base "class" for all widgets.
 
-fgui comes with an http://www.libsdl.org/[SDL] test program, try it:
+fgui comes with an http://www.libsdl.org/[SDL] demo program, try it:
 
 ----
-$ cd fgui && mkdir build && cmake .. && make && ./tests/fgui_test
+$ cd fgui && mkdir build && cmake .. && make && ./demo/fgui_demo
 ----
 
 
@@ -45,7 +45,7 @@ Features
 ** lineedit - single line text input
 ** combobox - supports "item changed" callback
 * no dynamic memory allocation
-* example/test program using fgui with SDL, http://www.libsdl.org/
+* example/demo program using fgui with SDL, http://www.libsdl.org/
 
 
 Planned features
