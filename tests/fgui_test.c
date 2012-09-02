@@ -4,6 +4,8 @@
 #define WIDTH 640
 #define HEIGHT 480
 
+#define LINEHEIGHT 20 /* pixels */
+
 // Screen surface
 SDL_Surface *gScreen;
 
@@ -30,37 +32,37 @@ void render_stuff(void)
 	/* draw background */
 	fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, 0xdddddddd);
 
-	fgui_draw_string("Use TAB to cycle focus", 50, 20, 0);
+	fgui_draw_string("Use TAB to cycle focus", 50, 1*LINEHEIGHT, 0);
 
-	fgui_draw_string("line:", 50, 50, 0);
-	fgui_draw_line(200, 50, 220, 50, 0xff << 8);
+	fgui_draw_string("line:", 50, 2*LINEHEIGHT, 0);
+	fgui_draw_line(200, 2*LINEHEIGHT, 220, 2*LINEHEIGHT, 0xff << 8);
 
-	fgui_draw_string("empty rectangle", 50, 70, 0);
-	fgui_draw_rectangle(200, 70, 10, 10, 0xff);
+	fgui_draw_string("empty rectangle", 50, 3*LINEHEIGHT, 0);
+	fgui_draw_rectangle(200, 3*LINEHEIGHT, 10, 10, 0xff);
 
-	fgui_draw_string("filled rectangle", 50, 90, 0);
-	fgui_fill_rectangle(200, 90, 10, 10, 0xff << 8);
+	fgui_draw_string("filled rectangle", 50, 4*LINEHEIGHT, 0);
+	fgui_fill_rectangle(200, 4*LINEHEIGHT, 10, 10, 0xff << 8);
 
-	fgui_draw_string("filled circle", 50, 110, 0);
-	fgui_draw_circle(200, 110, 5, 0xffffffff);
+	fgui_draw_string("filled circle", 50, 5*LINEHEIGHT, 0);
+	fgui_draw_circle(200, 5*LINEHEIGHT, 5, 0xffffffff);
 
 	//fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
 
-	fgui_draw_string("label widget", 50, 230, 0);
-	fgui_label_draw((struct fgui_widget *)&label);
+	fgui_draw_string("this colored string\nspans multiple\nlines", 200, 6*LINEHEIGHT, 0xff << 16);
 
-	fgui_draw_string("this colored string\nspans multiple\nlines", 200, 120, 0xff << 16);
-
-	fgui_draw_string("push button", 50, 170, 0);
+	fgui_draw_string("push button", 50, 8*LINEHEIGHT, 0);
 	fgui_button_draw((struct fgui_widget *)&button);
 
-	fgui_draw_string("2nd push button", 50, 190, 0);
+	fgui_draw_string("2nd push button", 50, 9*LINEHEIGHT, 0);
 	fgui_button_draw((struct fgui_widget *)&button2);
 
-	fgui_draw_string("combobox", 50, 210, 0);
+	fgui_draw_string("label widget", 50, 11*LINEHEIGHT, 0);
+	fgui_label_draw((struct fgui_widget *)&label);
+
+	fgui_draw_string("combobox", 50, 10*LINEHEIGHT, 0);
 	fgui_widget_draw((struct fgui_widget *)&combobox);
 
-	fgui_draw_string("lineedit", 50, 250, 0);
+	fgui_draw_string("lineedit", 50, 12*LINEHEIGHT, 0);
 	fgui_widget_draw((struct fgui_widget *)&lineedit);
 }
 
@@ -106,11 +108,11 @@ int main(int argc, char *argv[])
 	};
 
 	fgui_application_init(&app);
-	fgui_button_init(&button, 200, 170, 82, 12, "hello world", NULL);
-	fgui_button_init(&button2, 200, 190, 82, 12, "hello world 2", NULL);
-	fgui_label_init(&label, 200, 230, "hello fgui label", NULL);
-	fgui_lineedit_init(&lineedit, 200, 250, 100, 15, NULL);
-	fgui_combobox_init(&combobox, 200, 210, 60, 12, NULL);
+	fgui_button_init(&button, 200, 8*LINEHEIGHT, 82, 12, "hello world", NULL);
+	fgui_button_init(&button2, 200, 9*LINEHEIGHT, 82, 12, "hello world 2", NULL);
+	fgui_combobox_init(&combobox, 200, 10*LINEHEIGHT, 60, 12, NULL);
+	fgui_label_init(&label, 200, 11*LINEHEIGHT, "hello fgui label", NULL);
+	fgui_lineedit_init(&lineedit, 200, 12*LINEHEIGHT, 100, 15, NULL);
 	fgui_combobox_add_item(&combobox, "item1");
 	fgui_combobox_add_item(&combobox, "item2");
 	fgui_combobox_add_item(&combobox, "item3");
