@@ -29,6 +29,7 @@ int fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y, const
 	label->base.x = x;
 	label->base.y = y;
 	fgui_label_set_text(label, text);
+	fgui_widget_set_draw(&label->base, fgui_label_draw);
 	return 0;
 }
 
