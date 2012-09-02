@@ -17,6 +17,30 @@ void fgui_application_init(struct fgui_application *app)
 	memset(app, 0, sizeof *app);
 }
 
+static void set_next_focus_widget(struct fgui_application *app)
+{
+	int i;
+	int widget_idx;
+	struct fgui_widget *widget;
+
+	/* current widget loose focus */
+	app->focus_widget->has_focus = false;
+
+	/* try the next widget until we find one that accepts focus */
+	for (i = 0; i < app->num_children; i++) {
+		widget_idx = (app->focus_widget_idx + i + 1) % app->num_children;
+		widget = app->children[widget_idx];
+		if (widget->focus_policy == FGUI_TAB_FOCUS) {
+			app->focus_widget = widget;
+			app->focus_widget_idx = widget_idx;
+			app->focus_widget->has_focus = true;
+			break;
+		}
+	}
+
+	return;
+}
+
 void fgui_application_process_event(struct fgui_application *app,
 		struct fgui_event *event)
 {
@@ -25,17 +49,7 @@ void fgui_application_process_event(struct fgui_application *app,
 
 	/* TAB cycles focus */
 	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == 0x09) { // 0x09 => TAB
-		/* current widget loose focus */
-		app->focus_widget->has_focus = false;
-		if (app->focus_widget_idx + 1 < app->num_children) {
-			app->focus_widget_idx++;
-		} else {
-			app->focus_widget_idx = 0;
-		}
-		/* next widget gain focus */
-		app->focus_widget = app->children[app->focus_widget_idx];
-		app->focus_widget->has_focus = true;
-		return;
+		set_next_focus_widget(app);
 	}
 
 	/* not tab, pass on to widget */
