@@ -43,7 +43,7 @@ void render_stuff(void)
 	fgui_draw_string("filled rectangle", 50, 4*LINEHEIGHT, 0);
 	fgui_fill_rectangle(200, 4*LINEHEIGHT, 10, 10, 0xff << 8);
 
-	fgui_draw_string("filled circle", 50, 5*LINEHEIGHT, 0);
+	fgui_draw_string("circle", 50, 5*LINEHEIGHT, 0);
 	fgui_draw_circle(200, 5*LINEHEIGHT, 5, 0xffffffff);
 
 	//fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
