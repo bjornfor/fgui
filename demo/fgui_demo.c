@@ -8,6 +8,7 @@
 
 // Screen surface
 SDL_Surface *gScreen;
+struct fgui_application app;
 
 struct fgui_button button;
 struct fgui_button button2;
@@ -51,19 +52,12 @@ void render_stuff(void)
 	fgui_draw_string("this colored string\nspans multiple\nlines", 200, 6*LINEHEIGHT, 0xff << 16);
 
 	fgui_draw_string("push button", 50, 8*LINEHEIGHT, 0);
-	fgui_button_draw((struct fgui_widget *)&button);
-
 	fgui_draw_string("2nd push button", 50, 9*LINEHEIGHT, 0);
-	fgui_button_draw((struct fgui_widget *)&button2);
-
 	fgui_draw_string("label widget", 50, 11*LINEHEIGHT, 0);
-	fgui_label_draw((struct fgui_widget *)&label);
-
 	fgui_draw_string("combobox", 50, 10*LINEHEIGHT, 0);
-	fgui_widget_draw((struct fgui_widget *)&combobox);
-
 	fgui_draw_string("lineedit", 50, 12*LINEHEIGHT, 0);
-	fgui_widget_draw((struct fgui_widget *)&lineedit);
+
+	fgui_application_draw(&app);
 }
 
 struct btn_cb_data {
@@ -92,7 +86,6 @@ int main(int argc, char *argv[])
 	int ret;
 	SDL_Event event;
 	struct fgui_event fgui_event;
-	struct fgui_application app;
 	int button_clicks = 0;
 	int button2_clicks = 0;
 	struct btn_cb_data btn_cb_data = {
@@ -119,6 +112,7 @@ int main(int argc, char *argv[])
 	fgui_combobox_set_index(&combobox, 0);
 	fgui_application_add_widget(&app, &button.base);
 	fgui_application_add_widget(&app, &button2.base);
+	fgui_application_add_widget(&app, (struct fgui_widget *)&label);
 	fgui_application_add_widget(&app, (struct fgui_widget *)&combobox);
 	fgui_application_add_widget(&app, (struct fgui_widget *)&lineedit);
 	fgui_button_set_on_click_handler(&button, on_button_click, &btn_cb_data);
