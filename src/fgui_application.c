@@ -48,7 +48,7 @@ void fgui_application_process_event(struct fgui_application *app,
 	struct fgui_widget *widget;
 
 	/* TAB cycles focus */
-	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == 0x09) { // 0x09 => TAB
+	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == FGUI_KEY_TAB) {
 		set_next_focus_widget(app);
 	}
 

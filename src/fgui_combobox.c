@@ -22,10 +22,6 @@
 #define FGUI_COMBOBOX_TEXT_COLOR 0
 #define FGUI_COMBOBOX_FOCUS_COLOR (0xff << 16)
 
-/* arrow keys and enter */
-#define KEY_UP 273
-#define KEY_DOWN 274
-#define KEY_ENTER 0x0d
 
 int fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
 		uint16_t w, uint16_t h, struct fgui_widget *parent)
@@ -177,13 +173,12 @@ int fgui_combobox_event_handler(struct fgui_widget *widget, struct fgui_event *e
 {
 	struct fgui_combobox *combobox = (struct fgui_combobox *)widget;
 
-	// keycode 0x09 == TAB, 0x20 == SPACE
-	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == 0x20) {
+	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == FGUI_KEY_SPACE) {
 		combobox->is_expanded = !combobox->is_expanded;
 		return 0;
 	}
 
-	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == KEY_DOWN) {
+	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == FGUI_KEY_ARROW_DOWN) {
 		if (combobox->current_item < combobox->num_items - 1) {
 			combobox->current_item++;
 			if (combobox->on_change) {
@@ -193,7 +188,7 @@ int fgui_combobox_event_handler(struct fgui_widget *widget, struct fgui_event *e
 		return 0;
 	}
 
-	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == KEY_UP) {
+	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == FGUI_KEY_ARROW_UP) {
 		if (combobox->current_item > 0) {
 			combobox->current_item--;
 			if (combobox->on_change) {
@@ -203,7 +198,7 @@ int fgui_combobox_event_handler(struct fgui_widget *widget, struct fgui_event *e
 		return 0;
 	}
 
-	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == KEY_ENTER) {
+	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == FGUI_KEY_RETURN) {
 		combobox->is_expanded = false;
 		return 0;
 	}

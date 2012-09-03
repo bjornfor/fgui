@@ -22,11 +22,6 @@
 #define FGUI_LINEEDIT_BG_COLOR 0x00f0f0f0
 #define FGUI_LINEEDIT_TEXT_COLOR 0
 
-#define KEY_BACKSPACE 8
-#define KEY_DELETE 127
-#define KEY_RIGHT 275
-#define KEY_LEFT 276
-
 int fgui_lineedit_init(struct fgui_lineedit *lineedit,
 		uint16_t x, uint16_t y, uint16_t w, uint16_t h,
 		struct fgui_widget *parent)
@@ -133,7 +128,7 @@ int fgui_lineedit_event_handler(struct fgui_widget *widget, struct fgui_event *e
 		}
 		ret = 0;
 	} else if (event->type == FGUI_EVENT_KEYDOWN &&
-			(event->key.keycode == KEY_BACKSPACE)) {
+			(event->key.keycode == FGUI_KEY_BACKSPACE)) {
 		/* backspace moves the cursor back one step and then deletes
 		 * like 'delete' */
 		if (lineedit->cursor > 0) {
@@ -142,17 +137,17 @@ int fgui_lineedit_event_handler(struct fgui_widget *widget, struct fgui_event *e
 		}
 		ret = 0;
 	} else if (event->type == FGUI_EVENT_KEYDOWN &&
-			(event->key.keycode == KEY_DELETE)) {
+			(event->key.keycode == FGUI_KEY_DELETE)) {
 		/* delete removes the char after the cursor and leaves the
 		 * cursor alone */
 		delete_char(lineedit->text, lineedit->cursor);
 		ret = 0;
-	} else if (event->type == FGUI_EVENT_KEYDOWN && (event->key.keycode == KEY_LEFT)) {
+	} else if (event->type == FGUI_EVENT_KEYDOWN && (event->key.keycode == FGUI_KEY_ARROW_LEFT)) {
 		if (lineedit->cursor > 0) {
 			lineedit->cursor--;
 		}
 		ret = 0;
-	} else if (event->type == FGUI_EVENT_KEYDOWN && (event->key.keycode == KEY_RIGHT)) {
+	} else if (event->type == FGUI_EVENT_KEYDOWN && (event->key.keycode == FGUI_KEY_ARROW_RIGHT)) {
 		if (lineedit->text[lineedit->cursor] != '\0') {
 			lineedit->cursor++;
 		}

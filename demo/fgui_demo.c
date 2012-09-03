@@ -81,6 +81,21 @@ void on_combobox_change(void *userdata)
 	printf("%s\n", __func__);
 }
 
+enum fgui_key sdl_keysym_to_fgui_key(SDLKey sdl_keysym)
+{
+	enum fgui_key key;
+
+	switch (sdl_keysym) {
+		case SDLK_UP:    key = FGUI_KEY_ARROW_UP;    break;
+		case SDLK_DOWN:  key = FGUI_KEY_ARROW_DOWN;  break;
+		case SDLK_LEFT:  key = FGUI_KEY_ARROW_LEFT;  break;
+		case SDLK_RIGHT: key = FGUI_KEY_ARROW_RIGHT; break;
+		default:         key = sdl_keysym;           break;
+	}
+
+	return key;
+}
+
 int main(int argc, char *argv[])
 {
 	int ret;
@@ -150,7 +165,7 @@ int main(int argc, char *argv[])
 		switch (event.type) {
 		case SDL_KEYDOWN:
 			fgui_event.type = FGUI_EVENT_KEYDOWN;
-			fgui_event.key.keycode = event.key.keysym.sym;
+			fgui_event.key.keycode = sdl_keysym_to_fgui_key(event.key.keysym.sym);
 			fgui_application_process_event(&app, &fgui_event);
 			break;
 
@@ -161,7 +176,7 @@ int main(int argc, char *argv[])
 				return 0;
 			default:
 				fgui_event.type = FGUI_EVENT_KEYUP;
-				fgui_event.key.keycode = event.key.keysym.sym;
+				fgui_event.key.keycode = sdl_keysym_to_fgui_key(event.key.keysym.sym);
 				fgui_application_process_event(&app, &fgui_event);
 				break;
 			}
