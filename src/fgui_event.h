@@ -16,7 +16,8 @@
 #define FGUI_EVENT_H
 
 /*
- * Unicode C0 Controls and Basic Latin codes (equal to ASCII), with some holes in it :-)
+ * Unicode C0 Controls and Basic Latin codes (equal to ASCII), with some holes
+ * in it :-)  Also, there is a mapping of arrow keys after codepoint 127.
  */
 enum fgui_key {
 	FGUI_KEY_NULL                 = 0x0000,
@@ -126,15 +127,24 @@ enum fgui_key {
 	FGUI_KEY_DELETE               = 0x007f,
 
 	/*
-	 * Since there seems to be no unicode representation for arrow control
-	 * characters, use this private mapping. (The Basic Multilingual Plane
-	 * includes a Private Use Area (PUA) in the range from U+E000 to
-	 * U+F8FF.)
+	 * Custom non-printable keys should ideally not clash with other
+	 * existing codepoints, but there seems to be no better way right now.
+	 * Private Use Area (PUA) in Unicode (0xe000 - 0xf8ff) seemed
+	 * promising, but it seems they are reserved for *printable* charcodes.
+	 * According to the Unicode standard(?), it is basically up to the
+	 * application do define the meaning of the C1 Control codes U+0080 -
+	 * U+009f. If the application does not specify semantics, one can fall
+	 * back to the semantics specified in ISO/IEC 6429.
+	 *
+	 * Also, isprint(x) where x >= 256 may wrap around. Until fgui uses
+	 * wide chars we keep the key codes within 0-255.
+	 *
+	 * TODO: solve this issue by completely separating keys from text?
 	 */
-	FGUI_KEY_ARROW_UP             = 0xe000,
-	FGUI_KEY_ARROW_DOWN           = 0xe001,
-	FGUI_KEY_ARROW_LEFT           = 0xe002,
-	FGUI_KEY_ARROW_RIGHT          = 0xe003,
+	FGUI_KEY_ARROW_UP             = 0x0080,
+	FGUI_KEY_ARROW_DOWN           = 0x0081,
+	FGUI_KEY_ARROW_LEFT           = 0x0082,
+	FGUI_KEY_ARROW_RIGHT          = 0x0083,
 };
 
 enum fgui_event_type {
