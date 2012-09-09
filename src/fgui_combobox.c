@@ -28,18 +28,14 @@ int fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,
 {
 	int ret;
 
-	ret = fgui_widget_init((struct fgui_widget *)combobox, parent);
+	ret = fgui_widget_init(&combobox->base, x, y, w, h, parent);
 	if (ret != 0) {
 		return -1;
 	}
 
 	fgui_widget_set_draw((struct fgui_widget *)combobox, fgui_combobox_draw);
-	combobox->base.x = x;
-	combobox->base.y = y;
 	combobox->num_items = 0;
 	combobox->current_item = -1;
-	combobox->width = w;
-	combobox->height = h;
 	combobox->base.event_handler = fgui_combobox_event_handler;
 	return 0;
 }
@@ -111,60 +107,60 @@ void fgui_combobox_draw(struct fgui_widget *widget)
 
 	if (combobox->is_expanded) {
 		/* combobox background */
-		fgui_fill_rectangle(combobox->base.x, combobox->base.y,
-				combobox->width, combobox->height * combobox->num_items,
+		fgui_fill_rectangle(combobox->base.area.x, combobox->base.area.y,
+				combobox->base.area.w, combobox->base.area.h * combobox->num_items,
 				FGUI_COMBOBOX_BG_COLOR);
 
 		/* highlight current item */
-		fgui_fill_rectangle(combobox->base.x,
-				combobox->base.y + combobox->height * combobox->current_item,
-				combobox->width,
-				combobox->height,
+		fgui_fill_rectangle(combobox->base.area.x,
+				combobox->base.area.y + combobox->base.area.h * combobox->current_item,
+				combobox->base.area.w,
+				combobox->base.area.h,
 				FGUI_COMBOBOX_HIGHLIGHT_COLOR);
 
 		/* border */
-		fgui_draw_rectangle(combobox->base.x, combobox->base.y,
-				combobox->width, combobox->height * combobox->num_items,
+		fgui_draw_rectangle(combobox->base.area.x, combobox->base.area.y,
+				combobox->base.area.w, combobox->base.area.h * combobox->num_items,
 				FGUI_COMBOBOX_FOCUS_COLOR);
 
 		for (i = 0; i < combobox->num_items; i++) {
 			/* current item text */
 			fgui_draw_string(combobox->items[i].text,
-					combobox->base.x+2,
-					combobox->base.y+2 + combobox->height * i,
+					combobox->base.area.x+2,
+					combobox->base.area.y+2 + combobox->base.area.h * i,
 					FGUI_COMBOBOX_TEXT_COLOR, NULL);
 		}
 	} else {
 		/* combobox background */
-		fgui_fill_rectangle(combobox->base.x, combobox->base.y,
-				combobox->width, combobox->height,
+		fgui_fill_rectangle(combobox->base.area.x, combobox->base.area.y,
+				combobox->base.area.w, combobox->base.area.h,
 				FGUI_COMBOBOX_BG_COLOR);
 
 		/* border */
-		fgui_draw_rectangle(combobox->base.x, combobox->base.y,
-				combobox->width, combobox->height,
+		fgui_draw_rectangle(combobox->base.area.x, combobox->base.area.y,
+				combobox->base.area.w, combobox->base.area.h,
 				FGUI_COMBOBOX_BORDER_COLOR);
 
 
 		/* if focus, draw red border */
 		if (combobox->base.has_focus) {
-			fgui_draw_rectangle(combobox->base.x, combobox->base.y,
-					combobox->width, combobox->height,
+			fgui_draw_rectangle(combobox->base.area.x, combobox->base.area.y,
+					combobox->base.area.w, combobox->base.area.h,
 					FGUI_COMBOBOX_FOCUS_COLOR);
 		}
 
 		/* current item text */
 		fgui_draw_string(combobox->items[combobox->current_item].text,
-				combobox->base.x+2, combobox->base.y+2,
+				combobox->base.area.x+2, combobox->base.area.y+2,
 				FGUI_COMBOBOX_TEXT_COLOR, NULL);
 
 		/* draw arrow to indicate that this is a combobox */
-		fgui_draw_triangle(combobox->base.x + combobox->width - 15,
-				combobox->base.y + combobox->height / 2 - 2,
-				combobox->base.x + combobox->width - 5,
-				combobox->base.y + combobox->height / 2 - 2,
-				combobox->base.x + combobox->width - 10,
-				combobox->base.y + combobox->height / 2 + 3,
+		fgui_draw_triangle(combobox->base.area.x + combobox->base.area.w - 15,
+				combobox->base.area.y + combobox->base.area.h / 2 - 2,
+				combobox->base.area.x + combobox->base.area.w - 5,
+				combobox->base.area.y + combobox->base.area.h / 2 - 2,
+				combobox->base.area.x + combobox->base.area.w - 10,
+				combobox->base.area.y + combobox->base.area.h / 2 + 3,
 				FGUI_COMBOBOX_BORDER_COLOR);
 	}
 }

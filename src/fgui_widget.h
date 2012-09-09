@@ -19,6 +19,7 @@
 #include <stddef.h>   // size_t
 #include <stdbool.h>
 
+#include "fgui_types.h"
 #include "fgui_event.h"
 
 
@@ -35,20 +36,10 @@ enum fgui_focus_policy {
  */
 struct fgui_widget {
 	/**
-	 * Horisontal position of widget.
-	 *
-	 * For labels and rectangles it's the upper left corner. For circles
-	 * it's the center.
+	 * Rectangle that defines the upper left corner of widget, as well as
+	 * it's width and height.
 	 */
-	uint16_t x;
-
-	/**
-	 * Vertical position of widget.
-	 *
-	 * For labels and rectangles it's the upper left corner. For circles
-	 * it's the center.
-	 */
-	uint16_t y;
+	struct fgui_rect area;
 
 	/** does this widget support focus? */
 	enum fgui_focus_policy focus_policy;
@@ -91,7 +82,8 @@ struct fgui_widget {
 };
 
 
-int fgui_widget_init(struct fgui_widget *widget, struct fgui_widget *parent);
+int fgui_widget_init(struct fgui_widget *widget, uint16_t x, uint16_t y,
+		uint16_t w, uint16_t h, struct fgui_widget *parent);
 void fgui_widget_set_draw(struct fgui_widget *widget, void (*draw)(struct fgui_widget *widget));
 int fgui_widget_add_child(struct fgui_widget *widget, struct fgui_widget *child);
 void fgui_widget_draw(struct fgui_widget *widget);

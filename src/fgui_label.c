@@ -20,14 +20,13 @@ int fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y, const
 {
 	int ret;
 
-	ret = fgui_widget_init((struct fgui_widget *)label, parent);
+	/* TODO: define width and height for label */
+	ret = fgui_widget_init(&label->base, x, y, 0, 0, parent);
 	if (ret != 0) {
 		return -1;
 	}
 
 	label->base.focus_policy = FGUI_NO_FOCUS;
-	label->base.x = x;
-	label->base.y = y;
 	fgui_label_set_text(label, text);
 	fgui_widget_set_draw(&label->base, fgui_label_draw);
 	return 0;
@@ -42,5 +41,6 @@ void fgui_label_set_text(struct fgui_label *label, const char *text)
 void fgui_label_draw(struct fgui_widget *widget)
 {
 	struct fgui_label *label = (struct fgui_label *)widget;
-	fgui_draw_string(label->text, label->base.x, label->base.y, LABEL_TEXT_COLOR, NULL);
+	fgui_draw_string(label->text, label->base.area.x, label->base.area.y,
+			LABEL_TEXT_COLOR, NULL);
 }

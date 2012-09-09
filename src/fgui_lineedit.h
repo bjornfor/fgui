@@ -22,8 +22,6 @@
 
 struct fgui_lineedit {
 	struct fgui_widget base;
-	uint16_t width;
-	uint16_t height;
 	char text[FGUI_LINEEDIT_MAX_TEXTLEN];
 	size_t cursor;
 };

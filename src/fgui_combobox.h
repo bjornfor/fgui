@@ -32,8 +32,6 @@ struct fgui_combobox_item {
 
 struct fgui_combobox {
 	struct fgui_widget base;
-	uint16_t width;
-	uint16_t height;
 	struct fgui_combobox_item items[MAX_COMBOBOX_ITEMS];
 	size_t num_items;
 	int current_item;

@@ -28,16 +28,12 @@ int fgui_lineedit_init(struct fgui_lineedit *lineedit,
 {
 	int ret;
 
-	ret = fgui_widget_init((struct fgui_widget *)lineedit, parent);
+	ret = fgui_widget_init(&lineedit->base, x, y, w, h, parent);
 	if (ret != 0) {
 		return -1;
 	}
 
 	fgui_widget_set_draw((struct fgui_widget *)lineedit, fgui_lineedit_draw);
-	lineedit->base.x = x;
-	lineedit->base.y = y;
-	lineedit->width = w;
-	lineedit->height = h;
 	lineedit->base.event_handler = fgui_lineedit_event_handler;
 	lineedit->cursor = 0;
 	lineedit->text[0] = '\0';
@@ -51,32 +47,31 @@ void fgui_lineedit_draw(struct fgui_widget *widget)
 	size_t char_height;
 
 	/* draw light background */
-	fgui_fill_rectangle(lineedit->base.x, lineedit->base.y, lineedit->width,
-			lineedit->height, FGUI_LINEEDIT_BG_COLOR);
+	fgui_fill_rectangle(lineedit->base.area.x, lineedit->base.area.y, lineedit->base.area.w,
+			lineedit->base.area.h, FGUI_LINEEDIT_BG_COLOR);
 
 	/* draw widget border (color depends on focus) */
 	if (lineedit->base.has_focus) {
-		fgui_draw_rectangle(lineedit->base.x, lineedit->base.y, lineedit->width,
-				lineedit->height, FGUI_LINEEDIT_FOCUS_COLOR);
+		fgui_draw_rectangle(lineedit->base.area.x, lineedit->base.area.y, lineedit->base.area.w,
+				lineedit->base.area.h, FGUI_LINEEDIT_FOCUS_COLOR);
 	} else {
-		fgui_draw_rectangle(lineedit->base.x, lineedit->base.y, lineedit->width,
-				lineedit->height, FGUI_LINEEDIT_BORDER_COLOR);
+		fgui_draw_rectangle(lineedit->base.area.x, lineedit->base.area.y, lineedit->base.area.w,
+				lineedit->base.area.h, FGUI_LINEEDIT_BORDER_COLOR);
 	}
 
 	/* draw text */
-	struct fgui_rect clip = {lineedit->base.x, lineedit->base.y, lineedit->width, lineedit->height};
-	fgui_draw_string(lineedit->text, lineedit->base.x + 4, lineedit->base.y + 4,
-			FGUI_LINEEDIT_TEXT_COLOR, &clip);
+	fgui_draw_string(lineedit->text, lineedit->base.area.x + 4, lineedit->base.area.y + 4,
+			FGUI_LINEEDIT_TEXT_COLOR, &lineedit->base.area);
 
 	/* draw cursor (if we have focus) */
 	if (lineedit->base.has_focus) {
 		/* assume monospaced font */
 		char_width = cWidth[0];
 		char_height = cHeight[0];
-		fgui_draw_line(lineedit->base.x + 4 + lineedit->cursor * char_width,
-				lineedit->base.y + 2,
-				lineedit->base.x + 4 + lineedit->cursor * char_width,
-				lineedit->base.y + 2 + char_height,
+		fgui_draw_line(lineedit->base.area.x + 4 + lineedit->cursor * char_width,
+				lineedit->base.area.y + 2,
+				lineedit->base.area.x + 4 + lineedit->cursor * char_width,
+				lineedit->base.area.y + 2 + char_height,
 				FGUI_LINEEDIT_TEXT_COLOR);
 	}
 }

@@ -25,8 +25,6 @@
 
 struct fgui_button {
 	struct fgui_widget base;
-	uint16_t width;
-	uint16_t height;
 	char text[MAX_TEXT_LEN];
 	void (*on_click)(void *userdata);
 	void *on_click_userdata;

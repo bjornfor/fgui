@@ -25,11 +25,16 @@ static int null_event_handler(struct fgui_widget *widget, struct fgui_event *eve
 	return 1;
 }
 
-int fgui_widget_init(struct fgui_widget *widget, struct fgui_widget *parent)
+int fgui_widget_init(struct fgui_widget *widget, uint16_t x, uint16_t y,
+		uint16_t w, uint16_t h, struct fgui_widget *parent)
 {
 	int ret = 0;
 
 	memset(widget, 0, sizeof *widget);
+	widget->area.x = x;
+	widget->area.y = y;
+	widget->area.w = w;
+	widget->area.h = h;
 	widget->draw = null_draw;
 	widget->event_handler = null_event_handler;
 	widget->parent = parent;

@@ -31,18 +31,13 @@ int fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 {
 	int ret;
 
-	// cast or use button.base as argument
-	ret = fgui_widget_init(&button->base, parent);
+	ret = fgui_widget_init(&button->base, x, y, w, h, parent);
 	if (ret != 0) {
 		return -1;
 	}
 
 	fgui_widget_set_draw(&button->base, fgui_button_draw);
-	button->base.x = x;
-	button->base.y = y;
 	button->base.event_handler = fgui_button_event_handler;
-	button->width = w;
-	button->height = h;
 	fgui_button_set_text(button, text);
 	button->is_depressed = false;
 	return 0;
@@ -59,26 +54,30 @@ void fgui_button_draw(struct fgui_widget *widget)
 	struct fgui_button *button = (struct fgui_button *)widget;
 
 	/* button background */
-	fgui_fill_rectangle(button->base.x, button->base.y, button->width,
-			button->height, FGUI_BUTTON_BG_COLOR);
+	fgui_fill_rectangle(button->base.area.x, button->base.area.y,
+			button->base.area.w, button->base.area.h,
+			FGUI_BUTTON_BG_COLOR);
 
 	/* draw border, change color depending on focus */
 	if (button->base.has_focus) {
-		fgui_draw_rectangle(button->base.x, button->base.y, button->width,
-				button->height, FGUI_BUTTON_FOCUS_COLOR);
+		fgui_draw_rectangle(button->base.area.x, button->base.area.y,
+				button->base.area.w, button->base.area.h,
+				FGUI_BUTTON_FOCUS_COLOR);
 	} else {
-		fgui_draw_rectangle(button->base.x, button->base.y, button->width,
-				button->height, FGUI_BUTTON_BORDER_COLOR);
+		fgui_draw_rectangle(button->base.area.x, button->base.area.y,
+				button->base.area.w, button->base.area.h,
+				FGUI_BUTTON_BORDER_COLOR);
 	}
 
 	/* button text */
-	fgui_draw_string(button->text, button->base.x+2, button->base.y+2,
-			FGUI_BUTTON_TEXT_COLOR, NULL);
+	fgui_draw_string(button->text, button->base.area.x+2,
+			button->base.area.y+2, FGUI_BUTTON_TEXT_COLOR, NULL);
 
 	/* draw extra thick border if button is depressed */
 	if (button->is_depressed) {
-		fgui_draw_rectangle(button->base.x-1, button->base.y-1,
-				button->width+2, button->height+2,
+		fgui_draw_rectangle(button->base.area.x-1,
+				button->base.area.y-1, button->base.area.w+2,
+				button->base.area.h+2,
 				FGUI_BUTTON_FOCUS_COLOR);
 	}
 
