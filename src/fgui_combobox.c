@@ -132,7 +132,7 @@ void fgui_combobox_draw(struct fgui_widget *widget)
 			fgui_draw_string(combobox->items[i].text,
 					combobox->base.x+2,
 					combobox->base.y+2 + combobox->height * i,
-					FGUI_COMBOBOX_TEXT_COLOR);
+					FGUI_COMBOBOX_TEXT_COLOR, NULL);
 		}
 	} else {
 		/* combobox background */
@@ -156,7 +156,7 @@ void fgui_combobox_draw(struct fgui_widget *widget)
 		/* current item text */
 		fgui_draw_string(combobox->items[combobox->current_item].text,
 				combobox->base.x+2, combobox->base.y+2,
-				FGUI_COMBOBOX_TEXT_COLOR);
+				FGUI_COMBOBOX_TEXT_COLOR, NULL);
 
 		/* draw arrow to indicate that this is a combobox */
 		fgui_draw_triangle(combobox->base.x + combobox->width - 15,

@@ -8,13 +8,23 @@
 
 #include <stdint.h>
 #include <stdlib.h>  // abs()
+#include <stdbool.h>
 
+#include "fgui_types.h"
 #include "fgui_primitives.h"
 
 
-void fgui_draw_point(uint16_t x, uint16_t y, uint32_t color)
+/* Return true if point (x,y) is inside the given rectangle, else false. */
+static bool is_in_rect(uint16_t x, uint16_t y, struct fgui_rect *r)
 {
-	fgui_set_pixel(x, y, color);
+	return (x > r->x && x < (r->x + r->w) && y > r->y && y < (r->y + r->h));
+}
+
+void fgui_draw_point(uint16_t x, uint16_t y, uint32_t color, struct fgui_rect *clip)
+{
+	if (clip == NULL || is_in_rect(x, y, clip)) {
+		fgui_set_pixel(x, y, color);
+	}
 }
 
 /**

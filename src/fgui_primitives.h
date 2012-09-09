@@ -17,6 +17,8 @@
 
 #include <stdint.h>
 
+#include "fgui_types.h"
+
 
 /**
  * This is the "callback" that fgui uses when it needs to draw something on the
@@ -32,9 +34,13 @@ void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color);
 /**
  * Draw a point at (x, y).
  *
- * See fgui_set_pixel() for description of the color parameter.
+ * @param x     x coordinate
+ * @param y     y coordinate
+ * @param color @see fgui_set_pixel()
+ * @param clip  Pointer to a clipping rectangle. The point is drawn only if it
+ * is inside the rectangle. Set to NULL to disable clipping.
  */
-void fgui_draw_point(uint16_t x, uint16_t y, uint32_t color);
+void fgui_draw_point(uint16_t x, uint16_t y, uint32_t color, struct fgui_rect *clip);
 
 /**
  * Draw a line from (x0, y0) to (x1, y1).

@@ -7,7 +7,9 @@
  */
 
 #include <stdint.h>
+#include <stddef.h>     /* NULL */
 
+#include "fgui_types.h"
 #include "fgui_primitives.h"
 #include "fgui_font.h"
 #include "fgui_font_data.h"
@@ -29,7 +31,8 @@ static int get_char_index(char ch)
 }
 
 /** draw a single character */
-static int draw_char(char ch, uint16_t xpos, uint16_t ypos, uint32_t color)
+static int draw_char(char ch, uint16_t xpos, uint16_t ypos, uint32_t color,
+		struct fgui_rect *clip)
 {
 	int i;
 	int x;
@@ -46,7 +49,7 @@ static int draw_char(char ch, uint16_t xpos, uint16_t ypos, uint32_t color)
 		for (x = 0; x < cWidth[i]; x++) {
 			pixel_is_set = (cData[cOff0[i] + y] & (1<<(cWidth[i]-x)));
 			if (pixel_is_set) {
-				fgui_set_pixel(xpos+x, ypos+y, color);
+				fgui_draw_point(xpos+x, ypos+y, color, clip);
 			}
 		}
 	}
@@ -54,7 +57,8 @@ static int draw_char(char ch, uint16_t xpos, uint16_t ypos, uint32_t color)
 	return 0;
 }
 
-void fgui_draw_string(const char *str, uint16_t x, uint16_t y, uint32_t color)
+void fgui_draw_string(const char *str, uint16_t x, uint16_t y, uint32_t color,
+		struct fgui_rect *clip)
 {
 	int i;
 	int column;
@@ -73,7 +77,7 @@ void fgui_draw_string(const char *str, uint16_t x, uint16_t y, uint32_t color)
 			column = 0;
 			continue;
 		}
-		draw_char(str[i], x + column*char_width, y + line*char_height, color);
+		draw_char(str[i], x + column*char_width, y + line*char_height, color, clip);
 		column++;
 	}
 }

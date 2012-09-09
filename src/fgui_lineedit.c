@@ -64,8 +64,9 @@ void fgui_lineedit_draw(struct fgui_widget *widget)
 	}
 
 	/* draw text */
+	struct fgui_rect clip = {lineedit->base.x, lineedit->base.y, lineedit->width, lineedit->height};
 	fgui_draw_string(lineedit->text, lineedit->base.x + 4, lineedit->base.y + 4,
-			FGUI_LINEEDIT_TEXT_COLOR);
+			FGUI_LINEEDIT_TEXT_COLOR, &clip);
 
 	/* draw cursor (if we have focus) */
 	if (lineedit->base.has_focus) {

@@ -42,5 +42,5 @@ void fgui_label_set_text(struct fgui_label *label, const char *text)
 void fgui_label_draw(struct fgui_widget *widget)
 {
 	struct fgui_label *label = (struct fgui_label *)widget;
-	fgui_draw_string(label->text, label->base.x, label->base.y, LABEL_TEXT_COLOR);
+	fgui_draw_string(label->text, label->base.x, label->base.y, LABEL_TEXT_COLOR, NULL);
 }

@@ -73,7 +73,7 @@ void fgui_button_draw(struct fgui_widget *widget)
 
 	/* button text */
 	fgui_draw_string(button->text, button->base.x+2, button->base.y+2,
-			FGUI_BUTTON_TEXT_COLOR);
+			FGUI_BUTTON_TEXT_COLOR, NULL);
 
 	/* draw extra thick border if button is depressed */
 	if (button->is_depressed) {
