@@ -27,7 +27,8 @@ struct fgui_label {
 };
 
 int fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y,
-		const char *text, struct fgui_widget *parent);
+		uint16_t w, uint16_t h, const char *text,
+		struct fgui_widget *parent);
 void fgui_label_set_text(struct fgui_label *label, const char *text);
 void fgui_label_draw(struct fgui_widget *widget);
 

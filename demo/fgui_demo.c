@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 	fgui_button_init(&button, 200, 8*LINEHEIGHT, 82, 12, "hello world", NULL);
 	fgui_button_init(&button2, 200, 9*LINEHEIGHT, 82, 12, "hello world 2", NULL);
 	fgui_combobox_init(&combobox, 200, 10*LINEHEIGHT, 60, 12, NULL);
-	fgui_label_init(&label, 200, 11*LINEHEIGHT, "hello fgui label", NULL);
+	fgui_label_init(&label, 200, 11*LINEHEIGHT, 150, 20, "hello fgui label", NULL);
 	fgui_lineedit_init(&lineedit, 200, 12*LINEHEIGHT, 100, 15, NULL);
 	fgui_combobox_add_item(&combobox, "item1");
 	fgui_combobox_add_item(&combobox, "item2");
