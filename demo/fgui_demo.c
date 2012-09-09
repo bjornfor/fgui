@@ -71,7 +71,7 @@ void on_button_click(void *arg)
 	char buf[30];
 	struct btn_cb_data *data = arg;
 
-	sprintf(buf, "clicked \n%d times", ++(*data->number));
+	sprintf(buf, "clicks: %d", ++(*data->number));
 	printf("button %p clicked\n", data->button);
 	fgui_button_set_text(data->button, buf);
 }
