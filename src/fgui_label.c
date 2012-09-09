@@ -15,7 +15,7 @@
 #define LABEL_TEXT_COLOR 0
 
 
-int fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y, const
+int fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y,
 		const char *text, struct fgui_widget *parent)
 {
 	int ret;
