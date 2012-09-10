@@ -17,7 +17,12 @@ void fgui_application_init(struct fgui_application *app)
 	memset(app, 0, sizeof *app);
 }
 
-static void set_next_focus_widget(struct fgui_application *app)
+enum direction {
+	DIR_PREV,
+	DIR_NEXT,
+};
+
+static void set_focus_widget(struct fgui_application *app, enum direction dir)
 {
 	int i;
 	int widget_idx;
@@ -26,17 +31,32 @@ static void set_next_focus_widget(struct fgui_application *app)
 	/* current widget loose focus */
 	app->focus_widget->has_focus = false;
 
-	/* try the next widget until we find one that accepts focus */
-	for (i = 0; i < app->num_children; i++) {
-		widget_idx = (app->focus_widget_idx + i + 1) % app->num_children;
-		widget = app->children[widget_idx];
-		if (widget->focus_policy == FGUI_TAB_FOCUS) {
-			app->focus_widget = widget;
-			app->focus_widget_idx = widget_idx;
-			app->focus_widget->has_focus = true;
-			break;
+	if (dir == DIR_NEXT) {
+		/* try the next widget until we find one that accepts focus */
+		for (i = 0; i < app->num_children; i++) {
+			widget_idx = (app->focus_widget_idx + i + 1) % app->num_children;
+			widget = app->children[widget_idx];
+			if (widget->focus_policy == FGUI_TAB_FOCUS) {
+				app->focus_widget = widget;
+				app->focus_widget_idx = widget_idx;
+				app->focus_widget->has_focus = true;
+				break;
+			}
+		}
+	} else {
+		/* try the previous widget until we find one that accepts focus */
+		for (i = app->num_children; i > 0; i--) {
+			widget_idx = (app->focus_widget_idx + i - 1) % app->num_children;
+			widget = app->children[widget_idx];
+			if (widget->focus_policy == FGUI_TAB_FOCUS) {
+				app->focus_widget = widget;
+				app->focus_widget_idx = widget_idx;
+				app->focus_widget->has_focus = true;
+				break;
+			}
 		}
 	}
+
 
 	return;
 }
@@ -49,7 +69,7 @@ void fgui_application_process_event(struct fgui_application *app,
 
 	/* TAB cycles focus */
 	if (event->type == FGUI_EVENT_KEYDOWN && event->key.keycode == FGUI_KEY_TAB) {
-		set_next_focus_widget(app);
+		set_focus_widget(app, DIR_NEXT);
 	}
 
 	/* not tab, pass on to widget */
