@@ -17,6 +17,7 @@
 
 #include <stdint.h>
 
+#include "fgui_types.h"
 #include "fgui_primitives.h"
 #include "fgui_font.h"
 #include "fgui_button.h"
