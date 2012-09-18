@@ -9,10 +9,11 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "fgui_primitives.h"
 #include "fgui_label.h"
 #include "fgui_font.h"
 
-#define LABEL_TEXT_COLOR 0
+#define LABEL_TEXT_COLOR FGUI_COLOR(0, 0, 0)
 
 
 int fgui_label_init(struct fgui_label *label, uint16_t x, uint16_t y,

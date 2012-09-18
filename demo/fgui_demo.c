@@ -31,31 +31,32 @@ void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
 void render_stuff(void)
 {
 	/* draw background */
-	fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, 0xdddddddd);
+	fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, FGUI_COLOR(221,221,221));
 
 	fgui_draw_string("Use TAB to cycle focus", 50, 1*LINEHEIGHT, 0, NULL);
 
-	fgui_draw_string("line:", 50, 2*LINEHEIGHT, 0, NULL);
-	fgui_draw_line(200, 2*LINEHEIGHT, 220, 2*LINEHEIGHT, 0xff << 8);
+	fgui_draw_string("line:", 50, 2*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
+	fgui_draw_line(200, 2*LINEHEIGHT, 220, 2*LINEHEIGHT, FGUI_COLOR(0,255,0));
 
-	fgui_draw_string("empty rectangle", 50, 3*LINEHEIGHT, 0, NULL);
-	fgui_draw_rectangle(200, 3*LINEHEIGHT, 10, 10, 0xff);
+	fgui_draw_string("empty rectangle", 50, 3*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
+	fgui_draw_rectangle(200, 3*LINEHEIGHT, 10, 10, FGUI_COLOR(0,0,255));
 
 	fgui_draw_string("filled rectangle", 50, 4*LINEHEIGHT, 0, NULL);
-	fgui_fill_rectangle(200, 4*LINEHEIGHT, 10, 10, 0xff << 8);
+	fgui_fill_rectangle(200, 4*LINEHEIGHT, 10, 10, FGUI_COLOR(0, 255, 0));
 
-	fgui_draw_string("circle", 50, 5*LINEHEIGHT, 0, NULL);
-	fgui_draw_circle(200, 5*LINEHEIGHT, 5, 0xffffffff);
+	fgui_draw_string("circle", 50, 5*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
+	fgui_draw_circle(200, 5*LINEHEIGHT, 5, FGUI_COLOR(255, 255, 255));
 
 	//fgui_draw_triangle(50, 50, 55, 55, 60, 50, 0xff);
 
-	fgui_draw_string("this colored string\nspans multiple\nlines", 200, 6*LINEHEIGHT, 0xff << 16, NULL);
+	fgui_draw_string("this colored string\nspans multiple\nlines", 200, 6*LINEHEIGHT,
+		FGUI_COLOR(255,0,0), NULL);
 
-	fgui_draw_string("push button", 50, 8*LINEHEIGHT, 0, NULL);
-	fgui_draw_string("2nd push button", 50, 9*LINEHEIGHT, 0, NULL);
-	fgui_draw_string("label widget", 50, 11*LINEHEIGHT, 0, NULL);
-	fgui_draw_string("combobox", 50, 10*LINEHEIGHT, 0, NULL);
-	fgui_draw_string("lineedit", 50, 12*LINEHEIGHT, 0, NULL);
+	fgui_draw_string("push button", 50, 8*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
+	fgui_draw_string("2nd push button", 50, 9*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
+	fgui_draw_string("label widget", 50, 11*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
+	fgui_draw_string("combobox", 50, 10*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
+	fgui_draw_string("lineedit", 50, 12*LINEHEIGHT, FGUI_COLOR(0,0,0), NULL);
 
 	fgui_application_draw(&app);
 }

@@ -16,11 +16,11 @@
 #include "fgui_primitives.h"
 #include "fgui_font.h"
 
-#define FGUI_COMBOBOX_BG_COLOR 0xcccccccc
-#define FGUI_COMBOBOX_BORDER_COLOR 0xaaaaaaaa
-#define FGUI_COMBOBOX_HIGHLIGHT_COLOR 0x00909090
-#define FGUI_COMBOBOX_TEXT_COLOR 0
-#define FGUI_COMBOBOX_FOCUS_COLOR (0xff << 16)
+#define FGUI_COMBOBOX_BG_COLOR        FGUI_COLOR(0xcc, 0xcc, 0xcc)
+#define FGUI_COMBOBOX_BORDER_COLOR    FGUI_COLOR(0xaa, 0xaa, 0xaa)
+#define FGUI_COMBOBOX_HIGHLIGHT_COLOR FGUI_COLOR(0x90, 0x90, 0x90)
+#define FGUI_COMBOBOX_TEXT_COLOR      FGUI_COLOR(0, 0, 0)
+#define FGUI_COMBOBOX_FOCUS_COLOR     FGUI_COLOR(255, 0, 0)
 
 
 int fgui_combobox_init(struct fgui_combobox *combobox, uint16_t x, uint16_t y,

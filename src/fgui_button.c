@@ -21,10 +21,10 @@
 #include "fgui_primitives.h"
 #include "fgui_font.h"
 
-#define FGUI_BUTTON_BG_COLOR 0xcccccccc
-#define FGUI_BUTTON_BORDER_COLOR 0xaaaaaaaa
-#define FGUI_BUTTON_TEXT_COLOR 0
-#define FGUI_BUTTON_FOCUS_COLOR (0xff << 16)
+#define FGUI_BUTTON_BG_COLOR     FGUI_COLOR(0xcc, 0xcc, 0xcc)
+#define FGUI_BUTTON_BORDER_COLOR FGUI_COLOR(0xaa, 0xaa, 0xaa)
+#define FGUI_BUTTON_TEXT_COLOR   FGUI_COLOR(0, 0, 0)
+#define FGUI_BUTTON_FOCUS_COLOR  FGUI_COLOR(255, 0, 0)
 
 int fgui_button_init(struct fgui_button *button, uint16_t x, uint16_t y,
 		uint16_t w, uint16_t h, const char *text, struct fgui_widget *parent)
