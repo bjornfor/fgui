@@ -20,6 +20,8 @@
 #include "fgui_types.h"
 
 
+#define FGUI_COLOR(r, g, b) (((r << 16) & 0xff0000) | ((g << 8) & 0xff00) | (b & 0xff))
+
 /**
  * This is the "callback" that fgui uses when it needs to draw something on the
  * screen. It must be defined by the application.
