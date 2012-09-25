@@ -26,7 +26,11 @@ object-oriented and `fgui_widget.h` is the base "class" for all widgets.
 fgui comes with an http://www.libsdl.org/[SDL] demo program, try it:
 
 ----
-$ cd fgui && mkdir build && cmake .. && make && ./demo/fgui_demo
+$ cd fgui
+$ mkdir build && cd build
+$ cmake ..
+$ cmake --build .
+$ ./demo/fgui_demo
 ----
 
 
