@@ -75,3 +75,6 @@ Related projects
 * http://www.swellsoftware.com/products/cpeg.php[C/PEG] (not free software)
 * http://www.easygui.com/[easyGUI] (not free software)
 * http://www.contiki-os.org/[Contiki], a whole RTOS, not just GUI
+* http://sourceforge.net/projects/menudesigner/[menuDesigner], GPL
+* http://sourceforge.net/projects/embeddedgui/[EmbeddedGUI], LGPL
+* http://sourceforge.net/projects/pwlib/[pwlib], GPLv2+
