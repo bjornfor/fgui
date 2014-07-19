@@ -27,7 +27,8 @@ fgui comes with an http://www.libsdl.org/[SDL] demo program, try it:
 
 ----
 $ cd fgui
-$ mkdir build && cd build
+$ mkdir build
+$ cd build
 $ cmake ..
 $ cmake --build .
 $ ./demo/fgui_demo
