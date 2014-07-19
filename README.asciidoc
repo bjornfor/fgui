@@ -5,7 +5,7 @@ Bjørn Forsman <bjorn (dot) forsman (at) gmail (dot) com>
 WARNING: fgui is pre-alpha software.
 
 fgui is a small GUI toolkit written in C. It is designed to run on very small
-embedded systems, i.e. 8-bit microcontrollers and up, while still provinding an
+embedded systems, i.e. 8-bit microcontrollers and up, while still providing an
 easy to use API.
 
 fgui widgets are placed in a tree structure and input events propagate from the
