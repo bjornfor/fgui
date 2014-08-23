@@ -1,12 +1,20 @@
 #include <stdio.h>
+#include <time.h>
+#include <math.h>
+#include <assert.h>
 
 #include "SDL.h"
 #include "../src/fgui.h"
+#include "../src/utils.h"
+#include "../src/fgui_3d.h"
 
 #define WIDTH 640
 #define HEIGHT 480
 
 #define LINEHEIGHT 20 /* pixels */
+
+#define NUM_POINTS(box_wireframe) (sizeof(box_wireframe) / sizeof(box_wireframe[0]) * 2)
+
 
 // Screen surface
 SDL_Surface *gScreen;
@@ -17,6 +25,233 @@ struct fgui_button button2;
 struct fgui_label label;
 struct fgui_combobox combobox;
 struct fgui_lineedit lineedit;
+
+struct fgui_vec4 vec4;
+
+/*
+ * Some line coordinates in 3D
+ *
+ * Each index (row) is a 2 element array (begin/end points of a line) of each 4
+ * (x,y,z,w) coordinates.
+ */
+int box_wireframe[][2][4] = {
+	/* start_vec, end_vec */
+	/* x0, y0, z0, w0   x1, y1, z1, w0 */
+	/* front side (z=near) */
+	{{0, 0, 0, 0},   {1, 0, 0, 0}},
+	{{1, 0, 0, 0},   {1, 1, 0, 0}},
+	{{1, 1, 0, 0},   {0, 1, 0, 0}},
+	{{0, 1, 0, 0},   {0, 0, 0, 0}},
+
+	/* z-axis lines (z near -> far) */
+	{{0, 0, 0, 0},   {0, 0, 1, 0}},
+	{{1, 0, 0, 0},   {1, 0, 1, 0}},
+	{{1, 1, 0, 0},   {1, 1, 1, 0}},
+	{{0, 1, 0, 0},   {0, 1, 1, 0}},
+
+	/* back side (z=far) */
+	{{0, 0, 1, 0},   {1, 0, 1, 0}},
+	{{1, 0, 1, 0},   {1, 1, 1, 0}},
+	{{1, 1, 1, 0},   {0, 1, 1, 0}},
+	{{0, 1, 1, 0},   {0, 0, 1, 0}},
+};
+
+/* multiply two 4x4 matrices */
+void mat_mult_44_44(float m1[4][4], float m2[4][4], float out[4][4])
+{
+	int i;
+	int row, col;
+	float elem;
+	const int dim = 4;
+
+	for (row = 0; row < dim; row++)
+	{
+		for (col = 0; col < dim; col++)
+		{
+			elem = 0.0;
+			for (i = 0; i < dim; i++)
+			{
+				elem += m1[row][i] * m2[i][col];
+			}
+			out[row][col] = elem;
+		}
+	}
+}
+
+/* multiply a 4x4 matrix and 4x1 vector (result: 4x1 vector) */
+void mat_mult_44_41(float m1[4][4], float vec[4], float out[4])
+{
+	out[0] = m1[0][0] * vec[0]
+	       + m1[0][1] * vec[1]
+	       + m1[0][2] * vec[2]
+	       + m1[0][3] * vec[3];
+
+	out[1] = m1[1][0] * vec[0]
+	       + m1[1][1] * vec[1]
+	       + m1[1][2] * vec[2]
+	       + m1[1][3] * vec[3];
+
+	out[2] = m1[2][0] * vec[0]
+	       + m1[2][1] * vec[1]
+	       + m1[2][2] * vec[2]
+	       + m1[2][3] * vec[3];
+
+	out[3] = m1[3][0] * vec[0]
+	       + m1[3][1] * vec[1]
+	       + m1[3][2] * vec[2]
+	       + m1[3][3] * vec[3];
+}
+
+//void translate(float x, float y, float z, float m1[4][4], float out[4][4])
+void translate(float x, float y, float z, int vec[4], int out[4])
+{
+	/* translation matrix */
+	float tm[4][4] = {
+		{1, 0, 0, x},
+		{0, 1, 0, y},
+		{0, 0, 1, z},
+		{0, 0, 0, 1},
+	};
+
+	/* mat_mult(tm, m1, out); */
+
+	out[0] = tm[0][0] * vec[0] +
+	         tm[0][1] * vec[1] +
+	         tm[0][2] * vec[2] +
+	         tm[0][3] * vec[3];
+	out[1] = tm[1][0] * vec[0] +
+	         tm[1][1] * vec[1] +
+	         tm[1][2] * vec[2] +
+	         tm[1][3] * vec[3];
+	out[2] = tm[2][0] * vec[0] +
+	         tm[2][1] * vec[1] +
+	         tm[2][2] * vec[2] +
+	         tm[2][3] * vec[3];
+	out[3] = tm[3][0] * vec[0] +
+	         tm[3][1] * vec[1] +
+	         tm[3][2] * vec[2] +
+	         tm[3][3] * vec[3];
+}
+
+void translate2(float x, float y, float z, float vec[4], float out[4])
+{
+	/* translation matrix */
+	float tm[4][4] = {
+		{1, 0, 0, x},
+		{0, 1, 0, y},
+		{0, 0, 1, z},
+		{0, 0, 0, 1},
+	};
+
+	mat_mult_44_41(tm, vec, out);
+}
+
+// Rotate angle (in degrees) around vector [x, y, z]
+void rotate(float angle, float x, float y, float z, int vec[4], int out[4])
+{
+	// TODO: implement
+	/* rotation matrix */
+	float rm[4][4] = {
+		{1, 0, 0, x},
+		{0, 1, 0, y},
+		{0, 0, 1, z},
+		{0, 0, 0, 1},
+	};
+}
+
+
+void scale(float x, float y, float z, int vec[4], int out[4])
+{
+	out[0] = vec[0] * x;
+	out[1] = vec[1] * y;
+	out[2] = vec[2] * z;
+	out[3] = vec[3];
+}
+
+void normalize(int vec[4], int out[4])
+{
+	float len = sqrt((vec[0] * vec[0])
+	               + (vec[1] * vec[1])
+	               + (vec[2] * vec[2]));
+	out[0] = vec[0] / len;
+	out[1] = vec[1] / len;
+	out[2] = vec[2] / len;
+	out[3] = vec[3];
+}
+
+
+/* Project 3d point onto 2d plane */
+void project(int x, int y, int z, int *xout, int *yout)
+{
+	/* distance from the eye position to the projection plane */
+	float ez = 1.0;
+
+	/* perspective projection */
+	if (z == 0) {
+		z = 1;
+	}
+	/* *xout = (x / ((float)z * 1.0)); */
+	/* *yout = (y / ((float)z * 1.0)); */
+
+	*xout = x * (ez / z);
+	*yout = y * (ez / z);
+
+	/* orthographic projection */
+	/* *xout = x; */
+	/* *yout = y; */
+}
+
+void draw_box3d(int box_wireframe[12][2][4], int num_lines)
+{
+	int i;
+	int x0, x1, y0, y1;
+	int out[4];
+	int bwt[12][2][4] = {0}; /* box wireframe translated */
+
+	for (i = 0; i < num_lines; i++)
+	{
+		/* x, y, z */
+                translate(0, 0, 3, box_wireframe[i][0], bwt[i][0]);
+                translate(0, 0, 3, box_wireframe[i][1], bwt[i][1]);
+
+		project(bwt[i][0][0],
+			bwt[i][0][1],
+			bwt[i][0][2],
+			&x0, &y0);
+		project(bwt[i][1][0],
+			bwt[i][1][1],
+			bwt[i][1][2],
+			&x1, &y1);
+
+		printf("drawing line p0=(%2d,%2d), p1=(%2d,%2d)\n", x0, y0, x1, y1);
+		fgui_draw_line(10+x0, 10+y0, 10+x1, 10+y1, FGUI_COLOR(255,0,0));
+	}
+
+}
+
+/* translate and draw vertices */
+void draw_vertices(const struct fgui_vec4 *vertices, int num_vertices)
+{
+	int i;
+	int x, y;
+	const int max_vertices = 32;
+	struct fgui_vec4 translated_vertices[max_vertices];
+
+	assert(num_vertices <= max_vertices);
+
+	// Uhm, I could handle this with a single (translated) vertex variable,
+	// instead of the array.
+
+	for (i = 0; i < num_vertices; i++)
+	{
+		fgui_transform_vector(&vertices[i], 10,10,10, 0,0,0, 15,15,0, &translated_vertices[i]);
+		project(translated_vertices[i].x,
+			translated_vertices[i].y,
+			translated_vertices[i].z,
+			&x, &y);
+		fgui_set_pixel(x, y, FGUI_COLOR(255, 0, 0));
+	}
+}
 
 // define the "callback" that fgui uses to set pixels
 void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
@@ -32,6 +267,9 @@ void fgui_set_pixel(uint16_t x, uint16_t y, uint32_t color)
 // test some fgui primitives
 void render_stuff(void)
 {
+	/* fgui_draw_string("Use TAB to cycle focus", 50, 1*LINEHEIGHT, 0, NULL); */
+	/* return; */
+
 	/* draw background */
 	fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, FGUI_COLOR(221,221,221));
 
@@ -101,7 +339,10 @@ enum fgui_key sdl_keysym_to_fgui_key(SDLKey sdl_keysym)
 
 int main(int argc, char *argv[])
 {
+	int a[] = {cos(1)};
 	int ret;
+	int i;
+	int j;
 	SDL_Event event;
 	struct fgui_event fgui_event;
 	int button_clicks = 0;
@@ -117,6 +358,19 @@ int main(int argc, char *argv[])
 		"hello button2 userdata",
 		&button2_clicks,
 	};
+	bool need_redraw = true;
+	struct timeval tv0, tv1;
+	struct timespec ts0, ts1, res;
+	int usec;
+
+	if (argc > 1) {
+		/* for "perf stat ./fgui_demo" */
+		for (i = 0; i < 1000; i++)
+		{
+			render_stuff();
+		}
+		return 0;
+	}
 
 	fgui_application_init(&app);
 	fgui_button_init(&button, 200, 8*LINEHEIGHT, 82, 12, "hello world", NULL);
@@ -152,11 +406,48 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	while (1) {
-		render_stuff();
+	clockid_t clkid = CLOCK_THREAD_CPUTIME_ID; //CLOCK_PROCESS_CPUTIME_ID;
+	ret = clock_getres(clkid, &res);
+	if (ret != 0) {
+		perror("clock_getres");
+		return 1;
+	}
 
-		// update the whole screen
-		SDL_UpdateRect(gScreen, 0, 0, 0, 0);
+	printf("clock_gettime resolution: %ds%0dns\n", res.tv_sec, res.tv_nsec);
+
+	printf("NUM_POINTS: %d\n", NUM_POINTS(box_wireframe));
+
+	/* scale up the box */
+	for (i = 0; i < NUM_POINTS(box_wireframe); i++)
+	{
+		scale(30, 30, 30, box_wireframe[i][0], box_wireframe[i][0]);
+		scale(30, 30, 30, box_wireframe[i][1], box_wireframe[i][1]);
+	}
+
+	while (1) {
+
+		if (need_redraw) {
+			clock_gettime(clkid, &ts0);
+			for (i = 0; i < 1; i++) {
+				/* render_stuff(); */
+
+				/* draw background */
+				fgui_fill_rectangle(0, 0, WIDTH, HEIGHT, FGUI_COLOR(221,221,221));
+				//draw_box3d(box_wireframe, NUM_POINTS(box_wireframe) / 2);
+				draw_vertices(box_vertices, ARRAY_SIZE(box_vertices));
+			}
+			clock_gettime(clkid, &ts1);
+
+			usec = ((ts1.tv_nsec - ts0.tv_nsec) / 1000);
+			if (usec < 0) {
+				usec += 1000000;
+			}
+
+			printf("clock_gettime: %d us\n", usec);
+
+			// update the whole screen
+			SDL_UpdateRect(gScreen, 0, 0, 0, 0);
+		}
 
 		// blocking wait (tip: SDL_PollEvent is non-blocking)
 		ret = SDL_WaitEvent(&event);
@@ -170,6 +461,7 @@ int main(int argc, char *argv[])
 			fgui_event.type = FGUI_EVENT_KEYDOWN;
 			fgui_event.key.keycode = sdl_keysym_to_fgui_key(event.key.keysym.sym);
 			fgui_application_process_event(&app, &fgui_event);
+			need_redraw = true;
 			break;
 
 		case SDL_KEYUP:
@@ -181,6 +473,7 @@ int main(int argc, char *argv[])
 				fgui_event.type = FGUI_EVENT_KEYUP;
 				fgui_event.key.keycode = sdl_keysym_to_fgui_key(event.key.keysym.sym);
 				fgui_application_process_event(&app, &fgui_event);
+				need_redraw = true;
 				break;
 			}
 			break;
@@ -189,6 +482,7 @@ int main(int argc, char *argv[])
 			return 0;
 
 		default:
+			need_redraw = false;
 			break;
 		}
 	}

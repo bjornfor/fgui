@@ -8,6 +8,7 @@ set(SOURCES
 	fgui_widget.c
 	fgui_application.c
 	fonts/courier.c
+	fgui_3d.c
 	)
 set(HEADERS
 	fgui_application.h
@@ -22,6 +23,7 @@ set(HEADERS
 	fgui_primitives.h
 	fgui_types.h
 	fgui_widget.h
+	fgui_3d.h
 	utils.h
 	)
 add_library(fgui STATIC ${SOURCES})
