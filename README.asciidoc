@@ -83,3 +83,4 @@ Related projects
 * http://sourceforge.net/projects/menudesigner/[menuDesigner], GPL
 * http://sourceforge.net/projects/embeddedgui/[EmbeddedGUI], LGPL
 * http://sourceforge.net/projects/pwlib/[pwlib], GPLv2+
+* https://code.google.com/p/u8glib/[u8glib], New BSD License (3-clause)
