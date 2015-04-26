@@ -7,6 +7,7 @@ with pkgs;
     name = "fgui-dev";
     src = ./.;
     buildInputs = [
+      pkgconfig  # for getting compiler flags to YouCompleteMe
       cmake
       SDL
       pythonFull
