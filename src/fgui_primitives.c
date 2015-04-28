@@ -22,9 +22,9 @@ static bool is_in_rect(uint16_t x, uint16_t y, struct fgui_rect *r)
 
 void fgui_draw_point(uint16_t x, uint16_t y, uint32_t color, struct fgui_rect *clip)
 {
-	if (clip == NULL || is_in_rect(x, y, clip)) {
+	/* if (clip == NULL || is_in_rect(x, y, clip)) { */
 		fgui_set_pixel(x, y, color);
-	}
+	/* } */
 }
 
 /**

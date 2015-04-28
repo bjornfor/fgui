@@ -238,17 +238,29 @@ void draw_vertices(const struct fgui_vec4 *vertices, int num_vertices)
 	struct fgui_vec4 translated_vertices[max_vertices];
 
 	assert(num_vertices <= max_vertices);
+	assert(vertices == box_vertices);
 
 	// Uhm, I could handle this with a single (translated) vertex variable,
 	// instead of the array.
 
 	for (i = 0; i < num_vertices; i++)
 	{
-		fgui_transform_vector(&vertices[i], 10,10,10, 0,0,0, 15,15,0, &translated_vertices[i]);
+		fgui_transform_vector(&vertices[i], 2,2,2, 0,0,0, 0,0,0, &translated_vertices[i]);
+		printf("in: (%2d, %2d, %2d)\n",
+				vertices[i].x,
+				vertices[i].y,
+				vertices[i].z);
+
+		printf("out: (%2d, %2d, %2d)\n",
+				translated_vertices[i].x,
+				translated_vertices[i].y,
+				translated_vertices[i].z);
+
 		project(translated_vertices[i].x,
 			translated_vertices[i].y,
 			translated_vertices[i].z,
 			&x, &y);
+		//printf("setting pixel p0=(%2d,%2d)\n", x, y);
 		fgui_set_pixel(x, y, FGUI_COLOR(255, 0, 0));
 	}
 }
