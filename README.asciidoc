@@ -84,3 +84,4 @@ Related projects
 * http://sourceforge.net/projects/embeddedgui/[EmbeddedGUI], LGPL
 * http://sourceforge.net/projects/pwlib/[pwlib], GPLv2+
 * https://github.com/olikraus/u8glib[u8glib], New BSD License (3-clause)
+* http://www.embeddedlightning.com/ugui/[µGUI], custom open source license (allows commercial use)
