@@ -14,6 +14,7 @@ else()
 	# Do not abort on failure since the source directory might be read-only.
 	message(WARNING "${CREATE_SYMLINK_RESULT}")
 endif()
+#set(CMAKE_C_CLANG_TIDY clang-tidy)
 enable_testing()
 add_subdirectory(src)
 add_subdirectory(demo)
