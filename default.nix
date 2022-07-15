@@ -8,6 +8,7 @@ with pkgs;
     src = ./.;
     buildInputs = [
       cmake
+      clang-tools
       SDL
       graphicsmagick
     ];
