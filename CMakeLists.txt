@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.6)
 project(fgui)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Create a compilation database symlink to configure clang tooling, ref.
