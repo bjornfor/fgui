@@ -2,15 +2,13 @@
 
 with pkgs;
 
-{
-  fgui = stdenv.mkDerivation {
-    name = "fgui-dev";
-    src = lib.cleanSource ./.;
-    buildInputs = [
-      cmake
-      clang-tools
-      SDL
-      graphicsmagick
-    ];
-  };
+stdenv.mkDerivation {
+  name = "fgui-dev";
+  src = lib.cleanSource ./.;
+  buildInputs = [
+    cmake
+    clang-tools
+    SDL
+    graphicsmagick
+  ];
 }
