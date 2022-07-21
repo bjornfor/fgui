@@ -5,7 +5,7 @@ with pkgs;
 {
   fgui = stdenv.mkDerivation {
     name = "fgui-dev";
-    src = ./.;
+    src = lib.cleanSource ./.;
     buildInputs = [
       cmake
       clang-tools
