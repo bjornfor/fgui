@@ -14,6 +14,8 @@ else()
 	# Do not abort on failure since the source directory might be read-only.
 	message(WARNING "${CREATE_SYMLINK_RESULT}")
 endif()
+# To build with clang-tidy, either pass -DCMAKE_C_CLANG_TIDY=clang-tidy to
+# cmake or uncomment the next line.
 #set(CMAKE_C_CLANG_TIDY clang-tidy)
 enable_testing()
 add_subdirectory(src)
